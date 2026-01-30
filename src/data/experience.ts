@@ -5,6 +5,8 @@ export const experience = [
         location: 'Omaha, Nebraska',
         role: 'Full Stack Developer',
         period: 'Nov 2024 - Present',
+        logo: '/experience-icons/neil.png',
+        website: 'https://www.neinnovationlabs.com/',
         projects: [
             {
                 name: 'DM- DreamMoney',
@@ -86,6 +88,8 @@ export const experience = [
     {
         company: 'University Of Nebraska at Omaha',
         location: 'Omaha, Nebraska',
+        logo: '/experience-icons/uno.jpg',
+        website: 'https://www.unomaha.edu/',
         roles: [
             {
                 role: 'Attic Graduate Researcher',
@@ -127,6 +131,8 @@ export const experience = [
         location: 'Chennai, India',
         role: 'Software Engineer',
         period: 'Sep 2021 - Dec 2023',
+        logo: '/experience-icons/hcl1.jpg',
+        website: 'https://www.hcltech.com/',
         projects: [
             {
                 name: 'Citi Bank – CGE Project',

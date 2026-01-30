@@ -1,8 +1,10 @@
 
 "use client";
+
 import { useState } from 'react';
 import { experience } from '../data/experience';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 export default function ExperienceSection() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -19,7 +21,8 @@ export default function ExperienceSection() {
             </motion.h2>
             <div className="space-y-4">
                 {experience.map((exp, idx) => {
-                    // If exp.roles exists, render multiple roles under one company
+                    // Use logo from data only
+                    // Multi-role company
                     if (Array.isArray(exp.roles)) {
                         const [firstRole, ...otherRoles] = exp.roles;
                         return (
@@ -31,19 +34,49 @@ export default function ExperienceSection() {
                                 transition={{ duration: 0.5 }}
                             >
                                 <button
-                                    className="w-full flex flex-col md:flex-row md:items-center md:justify-between px-6 py-4 text-left focus:outline-none bg-zinc-900 hover:bg-[#181e29] transition-colors"
+                                    className="w-full flex flex-col md:flex-row items-stretch md:items-center justify-between focus:outline-none bg-transparent hover:bg-[#181e29] transition-colors cursor-pointer"
                                     onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                                     aria-expanded={openIndex === idx}
+                                    type="button"
                                 >
-                                    <div>
-                                        <h3 className="font-semibold text-lg text-blue-400 flex items-center gap-2">
-                                            <span className="text-blue-500 font-bold">{firstRole.role}</span>
-                                            <span className="text-white font-normal">@ {exp.company}</span>
-                                            <span className="text-xs text-white/80 ml-2">{exp.location}</span>
-                                        </h3>
+                                    {/* Left: Role and Period */}
+                                    <div className="flex-1 p-6 flex flex-col justify-center text-left">
+                                        <h3 className="font-semibold text-xl text-blue-400 mb-2">{firstRole.role}</h3>
+                                        <p className="text-white text-sm opacity-80">{firstRole.period}</p>
+                                        <p className="text-white text-xs opacity-60 mt-1">{exp.location}</p>
                                     </div>
-                                    <span className="text-white/80 text-sm mt-2 md:mt-0">{firstRole.period}</span>
+                                    {/* Right: Company and Logo */}
+                                    <div className="flex flex-col items-center justify-center bg-zinc-800 p-6 min-w-[220px] md:min-w-[300px] border-l border-zinc-700">
+                                        <p className="text-white text-base font-medium mb-3 text-center">{exp.company}</p>
+                                        <div className="flex justify-center">
+                                            {exp.website ? (
+                                                <a href={exp.website} target="_blank" rel="noopener noreferrer" className="relative group">
+                                                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-zinc-800 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10 shadow-lg border border-zinc-700">
+                                                        Click to visit company page
+                                                    </span>
+                                                    <Image
+                                                        src={exp.logo}
+                                                        alt={exp.company + ' Logo'}
+                                                        width={90}
+                                                        height={90}
+                                                        className="object-contain drop-shadow-lg rounded-md hover:scale-105 transition-transform"
+                                                        priority
+                                                    />
+                                                </a>
+                                            ) : (
+                                                <Image
+                                                    src={exp.logo}
+                                                    alt={exp.company + ' Logo'}
+                                                    width={90}
+                                                    height={90}
+                                                    className="object-contain drop-shadow-lg rounded-md"
+                                                    priority
+                                                />
+                                            )}
+                                        </div>
+                                    </div>
                                 </button>
+                                {/* Expandable details */}
                                 <AnimatePresence initial={false}>
                                     {openIndex === idx && (
                                         <motion.div
@@ -52,7 +85,7 @@ export default function ExperienceSection() {
                                             animate={{ height: 'auto', opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.4, ease: 'easeInOut' }}
-                                            className="px-6 pb-6"
+                                            className="w-full px-6 pb-6 col-span-2"
                                         >
                                             {[firstRole, ...otherRoles].map((role, rIdx) => (
                                                 <div key={role.role + rIdx} className="mt-4">
@@ -81,7 +114,7 @@ export default function ExperienceSection() {
                             </motion.div>
                         );
                     }
-                    // Fallback for single-role companies
+                    // Single-role company
                     return (
                         <motion.div
                             key={exp.role + exp.company}
@@ -91,19 +124,49 @@ export default function ExperienceSection() {
                             transition={{ duration: 0.5 }}
                         >
                             <button
-                                className="w-full flex flex-col md:flex-row md:items-center md:justify-between px-6 py-4 text-left focus:outline-none bg-zinc-900 hover:bg-[#181e29] transition-colors"
+                                className="w-full flex flex-col md:flex-row items-stretch md:items-center justify-between focus:outline-none bg-transparent hover:bg-[#181e29] transition-colors cursor-pointer"
                                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                                 aria-expanded={openIndex === idx}
+                                type="button"
                             >
-                                <div>
-                                    <h3 className="font-semibold text-lg text-blue-400 flex items-center gap-2">
-                                        <span className="text-blue-500 font-bold">{exp.role}</span>
-                                        <span className="text-white font-normal">@ {exp.company}</span>
-                                        <span className="text-xs text-white/80 ml-2">{exp.location}</span>
-                                    </h3>
+                                {/* Left: Role and Period */}
+                                <div className="flex-1 p-6 flex flex-col justify-center text-left">
+                                    <h3 className="font-semibold text-xl text-blue-400 mb-2">{exp.role}</h3>
+                                    <p className="text-white text-sm opacity-80">{exp.period}</p>
+                                    <p className="text-white text-xs opacity-60 mt-1">{exp.location}</p>
                                 </div>
-                                <span className="text-white/80 text-sm mt-2 md:mt-0">{exp.period}</span>
+                                {/* Right: Company and Logo */}
+                                <div className="flex flex-col items-center justify-center bg-zinc-800 p-6 min-w-[220px] md:min-w-[300px] border-l border-zinc-700">
+                                    <p className="text-white text-base font-medium mb-3 text-center">{exp.company}</p>
+                                    <div className="flex justify-center">
+                                        {exp.website ? (
+                                            <a href={exp.website} target="_blank" rel="noopener noreferrer" className="relative group">
+                                                <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded bg-zinc-800 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10 shadow-lg border border-zinc-700">
+                                                    Click to visit company page
+                                                </span>
+                                                <Image
+                                                    src={exp.logo}
+                                                    alt={exp.company + ' Logo'}
+                                                    width={90}
+                                                    height={90}
+                                                    className="object-contain drop-shadow-lg rounded-md hover:scale-105 transition-transform"
+                                                    priority
+                                                />
+                                            </a>
+                                        ) : (
+                                            <Image
+                                                src={exp.logo}
+                                                alt={exp.company + ' Logo'}
+                                                width={90}
+                                                height={90}
+                                                className="object-contain drop-shadow-lg rounded-md"
+                                                priority
+                                            />
+                                        )}
+                                    </div>
+                                </div>
                             </button>
+                            {/* Expandable details */}
                             <AnimatePresence initial={false}>
                                 {openIndex === idx && (
                                     <motion.div
@@ -112,7 +175,7 @@ export default function ExperienceSection() {
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
                                         transition={{ duration: 0.4, ease: 'easeInOut' }}
-                                        className="px-6 pb-6"
+                                        className="w-full px-6 pb-6 col-span-2"
                                     >
                                         {exp.projects && exp.projects.map((proj) => (
                                             <div key={proj.name} className="mt-4">
