@@ -79,7 +79,7 @@ export default function Home() {
                     <div className="flex-1 flex justify-center md:justify-end items-center md:items-start mt-4 md:mt-0">
                         <div className="relative w-32 h-32 md:w-44 md:h-44">
                             <Image
-                                src="/profile-pic.png"
+                                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/profile-pic.png`}
                                 alt="Venkata Rohith Pesala photo"
                                 fill
                                 className="rounded-full object-cover border-2 shadow-lg"
