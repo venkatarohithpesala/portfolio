@@ -37,9 +37,10 @@ export default function Home() {
                         <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-fade-in whitespace-nowrap md:whitespace-nowrap">
                             Hi, I'm Venkat
                         </h1>
-                        <p className="text-lg text-white dark:text-zinc-300 max-w-2xl animate-fade-in delay-200 mb-0 mt-3">
-                            Full Stack Developer | Cloud & DevOps Enthusiast | Building modern, scalable solutions with passion for UI/UX and automation.
-                        </p>
+                        <div className="text-base md:text-base text-white dark:text-zinc-300 max-w-2xl md:max-w-4xl animate-fade-in delay-200 mb-0 mt-3 space-y-1 text-center md:text-left">
+                            <p className="text-lg md:text-xl font-semibold">Full Stack Developer</p>
+                            <p className="md:inline">Experienced with AWS, DevOps, CI/CD, and building scalable, cloud-native solutions. Passionate about integrating APIs and cloud services to deliver robust, real-time applications.</p>
+                        </div>
                         <HeroLottie />
                     </div>
                     <div className="flex-1 flex justify-center md:justify-end items-center md:items-start mt-4 md:mt-0">

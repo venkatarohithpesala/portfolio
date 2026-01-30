@@ -28,9 +28,21 @@ export default function SkillsSection() {
                         </h3>
                         <ul className="flex flex-wrap gap-2">
                             {group.items.map((item) => (
-                                <li key={item} className="bg-[#172554] text-blue-200 px-3 py-1 rounded-full text-sm font-medium shadow hover:bg-blue-700 hover:text-white transition-colors">
-                                    {item}
-                                </li>
+                                typeof item === 'object' && 'name' in item && 'icon' in item ? (
+                                    <li key={item.name} className="flex items-center gap-2 bg-[#23272f] border border-[#353945] px-4 py-2 rounded-xl text-sm font-medium shadow hover:scale-105 transition-transform">
+                                        <img
+                                            src={`/skill-icons/${item.icon}`}
+                                            alt={item.name + ' logo'}
+                                            className="w-6 h-6 object-contain"
+                                            loading="lazy"
+                                        />
+                                        <span className="text-white font-medium">{item.name}</span>
+                                    </li>
+                                ) : (
+                                    <li key={typeof item === 'string' ? item : (item as any).name} className="bg-[#172554] text-blue-200 px-3 py-1 rounded-full text-sm font-medium shadow hover:bg-blue-700 hover:text-white transition-colors">
+                                        {typeof item === 'string' ? item : (item as any).name}
+                                    </li>
+                                )
                             ))}
                         </ul>
                     </motion.div>
