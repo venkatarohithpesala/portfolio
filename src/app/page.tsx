@@ -107,6 +107,10 @@ export default function Home() {
                     </svg>
                 </button>
             )}
+            {/* Simple Footer */}
+            <footer className="w-full text-center py-4 text-zinc-400 text-sm border-t border-zinc-800 mt-8">
+                © {new Date().getFullYear()} Venkata Rohith Pesala
+            </footer>
         </div>
     );
 }
