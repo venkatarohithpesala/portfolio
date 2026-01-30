@@ -34,10 +34,10 @@ export default function ExperienceSection() {
                             <div className="timeline-logo">
                                 {exp?.website ? (
                                     <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
-                                        <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${exp.logo}`} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
+                                        <Image src={exp.logo} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
                                     </a>
                                 ) : (
-                                    <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${exp?.logo || ''}`} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
+                                    <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
                                 )}
                             </div>
                             <h3 className="font-semibold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
