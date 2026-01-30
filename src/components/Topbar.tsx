@@ -121,7 +121,7 @@ export default function Topbar({
                         </a>
                         {/* Resume Download Button (mobile) with icon and text, smaller size */}
                         <a
-                            href="/Venkata_Rohith_Pesala.pdf"
+                            href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Venkata_Rohith_Pesala.pdf`}
                             download
                             aria-label="Download Resume"
                             className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-blue-400 text-black font-semibold text-xs shadow hover:bg-blue-500 transition-colors border border-blue-300 ml-2 mr-2"
@@ -170,7 +170,7 @@ export default function Topbar({
                 <div className="flex gap-4 items-center ml-4 text-white">
                     {/* Resume Download Button (desktop) */}
                     <a
-                        href="/Venkata_Rohith_Pesala.pdf"
+                        href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/Venkata_Rohith_Pesala.pdf`}
                         download
                         className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-transparent border border-blue-400 text-blue-400 font-semibold text-sm hover:bg-blue-400 hover:text-black transition-colors shadow-sm"
                         style={{ textDecoration: 'none' }}

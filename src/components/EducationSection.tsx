@@ -39,7 +39,7 @@ export default function EducationSection() {
                                             Click to visit university website
                                         </span>
                                         <Image
-                                            src="/education-icons/uno.jpg"
+                                            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/education-icons/uno.jpg`}
                                             alt="University of Nebraska at Omaha Logo"
                                             width={90}
                                             height={90}
