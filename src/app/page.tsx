@@ -49,11 +49,30 @@ export default function Home() {
                 {/* Hero Section */}
                 <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between text-center md:text-left mb-0 gap-4 md:gap-6 min-h-[18rem]">
                     <div className="flex-1 flex flex-col items-center md:items-start justify-start">
-                        <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-fade-in whitespace-nowrap md:whitespace-nowrap">
-                            Hi, I'm Venkat
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-white animate-fade-in whitespace-nowrap md:whitespace-nowrap">
+                            <span className="typing-demo border-r-2 border-blue-400 pr-1">Hi, I'm Venkat</span>
                         </h1>
+                        {/* Typing animation styles */}
+                        <style jsx>{`
+                                     .typing-demo {
+                                                    display: inline-block;
+                                                    overflow: hidden;
+                                                    white-space: nowrap;
+                                                    border-right: 2px solid #60a5fa;
+                                                    animation: typing 2.5s steps(30, end), blink-caret 0.75s step-end infinite;
+                                                    font-family: inherit;
+                                                  }
+                                                    @keyframes typing {
+                                                        from { width: 0 }
+                                                        to { width: 100% }
+                                                    }
+                                                    @keyframes blink-caret {
+                                                        from, to { border-color: transparent }
+                                                        50% { border-color: #60a5fa; }
+                                                    }                       
+                                        `}</style>
                         <div className="text-base md:text-base text-white dark:text-zinc-300 max-w-2xl md:max-w-4xl animate-fade-in delay-200 mb-0 mt-3 space-y-1 text-center md:text-left">
-                            <p className="text-lg md:text-xl font-semibold">Full Stack Developer</p>
+                            <p className="text-lg md:text-xl font-semibold text-blue-400">Full Stack Developer</p>
                             <p className="md:inline">Experienced with AWS, DevOps, CI/CD, and building scalable, cloud-native solutions. Passionate about integrating APIs and cloud services to deliver robust, real-time applications.</p>
                         </div>
                     </div>
@@ -63,7 +82,7 @@ export default function Home() {
                                 src="/profile-pic.png"
                                 alt="Venkata Rohith Pesala photo"
                                 fill
-                                className="rounded-full object-cover border-4 border-blue-400 shadow-lg"
+                                className="rounded-full object-cover border-2 shadow-lg"
                                 priority
                             />
                         </div>
