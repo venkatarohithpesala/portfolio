@@ -23,7 +23,7 @@ export default function SkillsSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <h3 className="font-semibold text-lg mb-2 text-blue-600 dark:text-blue-400 flex items-center gap-2">
+                        <h3 className="font-semibold text-lg mb-2 text-blue-400 flex items-center gap-2">
                             {group.category}
                         </h3>
                         <ul className="flex flex-wrap gap-2">

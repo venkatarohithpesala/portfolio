@@ -1,4 +1,6 @@
+
 "use client";
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import SkillsSection from '../components/SkillsSection';
@@ -10,6 +12,19 @@ import { useRef, RefObject } from 'react';
 import Topbar from '../components/Topbar';
 
 export default function Home() {
+    const [showScrollTop, setShowScrollTop] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollTop(window.scrollY > 200);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
     // Section refs for scrolling
     const skillsRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
     const educationRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
@@ -41,7 +56,6 @@ export default function Home() {
                             <p className="text-lg md:text-xl font-semibold">Full Stack Developer</p>
                             <p className="md:inline">Experienced with AWS, DevOps, CI/CD, and building scalable, cloud-native solutions. Passionate about integrating APIs and cloud services to deliver robust, real-time applications.</p>
                         </div>
-                        <HeroLottie />
                     </div>
                     <div className="flex-1 flex justify-center md:justify-end items-center md:items-start mt-4 md:mt-0">
                         <div className="relative w-32 h-32 md:w-44 md:h-44">
@@ -55,13 +69,25 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                {/* Mobile-only spacer to push Skills section below the fold */}
-                <div className="block md:hidden h-32"></div>
+                {/* Mobile-only spacer to push Skills section further below the fold */}
+                <div className="block md:hidden h-64"></div>
                 <div ref={skillsRef}><SkillsSection /></div>
                 <div ref={educationRef}><EducationSection /></div>
                 <div ref={experienceRef}><ExperienceSection /></div>
                 <div ref={projectsRef}><ProjectsSection /></div>
             </main>
+            {/* Scroll to Top Button */}
+            {showScrollTop && (
+                <button
+                    onClick={scrollToTop}
+                    className="fixed bottom-6 right-6 z-50 bg-black border-2 border-blue-400 hover:bg-zinc-900 text-blue-400 rounded-full shadow-lg p-1.5 transition-all duration-300 animate-fade-in w-10 h-10 flex items-center justify-center"
+                    aria-label="Scroll to top"
+                >
+                    <svg width="20" height="20" fill="none" stroke="#60a5fa" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                    </svg>
+                </button>
+            )}
         </div>
     );
 }

@@ -8,16 +8,16 @@ export const projects = [
     {
         title: "Newstrust",
         description:
-            "Built a website where users type a news claim and get a result (True / False / Unclear) with a confidence score. Combines OpenAI analysis with NewsAPI articles to cross-check claims; saves user questions and results in Supabase so others can view them, with links to sources and a short explanation.",
+            "Built a full-stack web app for verifying news claims using OpenAI and NewsAPI. Users submit claims and receive confidence scores, source links, and concise explanations for each result.",
     },
     {
         title: "AI Code Generator",
         description:
-            "Developed an AI-Driven tool to generate code snippets from user prompts using OpenAI’s language models, reducing coding time for common programming tasks. Designed a Flask API endpoint to handle prompt-based code generation request, streamling integration and testing with postman.",
+            "Developed an AI-powered tool to generate code snippets from user prompts using OpenAI models. Provided a Flask API for prompt handling, code generation, and easy integration.",
     },
     {
         title: "3D Free Space detection",
         description:
-            "Designed a 3D free space detection algorithm for autonomous vehicles, leveraging stereo camera depth data to identify safe navigable areas. Applied the Semi-Global Stereo Matching technique and RANSAC line-fitting to improve safety and obstacle avoidance.",
+            "Designed a 3D free space detection system for autonomous vehicles, leveraging stereo camera depth data and advanced line-fitting to identify safe, navigable areas and improve obstacle avoidance.",
     },
 ];
