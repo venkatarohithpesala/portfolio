@@ -1,6 +1,7 @@
 "use client";
 import { projects } from '../data/projects';
 import { motion } from 'framer-motion';
+import './ProjectsSection.css';
 
 export default function ProjectsSection() {
     return (
@@ -17,14 +18,22 @@ export default function ProjectsSection() {
                 {projects.map((proj) => (
                     <motion.div
                         key={proj.title}
-                        className="rounded-lg bg-zinc-900 p-6 shadow-md hover:scale-105 transition-transform"
-                        whileHover={{ scale: 1.05 }}
+                        className="flip-card"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <h3 className="font-semibold text-lg mb-2 text-blue-400">{proj.title}</h3>
-                        <p className="text-white/90">{proj.description}</p>
+                        <div className="flip-card-inner">
+                            {/* Front */}
+                            <div className="flip-card-front rounded-lg bg-zinc-900 shadow-md flex items-center justify-center h-48 md:h-56">
+                                <h3 className="font-semibold text-xl text-blue-400 text-center px-4">{proj.title}</h3>
+                            </div>
+                            {/* Back */}
+                            <div className="flip-card-back rounded-lg bg-zinc-900 shadow-md flex flex-col items-center justify-center h-48 md:h-56 p-4 overflow-y-auto">
+                                <h3 className="font-semibold text-lg mb-2 text-blue-400 text-center">{proj.title}</h3>
+                                <p className="text-white/90 text-center text-sm break-words max-h-40 md:max-h-48 overflow-y-auto w-full">{proj.description}</p>
+                            </div>
+                        </div>
                     </motion.div>
                 ))}
             </div>
