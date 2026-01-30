@@ -31,7 +31,7 @@ export default function SkillsSection() {
                                 typeof item === 'object' && 'name' in item && 'icon' in item ? (
                                     <li key={item.name} className="flex items-center gap-2 bg-[#23272f] border border-[#353945] px-4 py-2 rounded-xl text-sm font-medium shadow hover:scale-105 transition-transform">
                                         <img
-                                            src={`/skill-icons/${item.icon}`}
+                                            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/skill-icons/${item.icon}`}
                                             alt={item.name + ' logo'}
                                             className="w-6 h-6 object-contain"
                                             loading="lazy"
