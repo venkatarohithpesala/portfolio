@@ -97,10 +97,10 @@ export default function SkillsSection() {
                                     </h3>
                                     <motion.span 
                                         animate={{ rotate: isExpanded ? 180 : 0 }}
-                                        className="md:hidden p-1.5 rounded-full bg-blue-500/10 flex items-center justify-center"
+                                        className="md:hidden flex items-center justify-center opacity-40"
                                     >
-                                        <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                         </svg>
                                     </motion.span>
                                 </div>
@@ -113,11 +113,11 @@ export default function SkillsSection() {
                                             return (
                                                 <div key={name} className="skill-item">
                                                     {icon && (
-                                                        <div className="skill-icon-wrapper">
-                                                            <img src={`/skill-icons/${icon}`} alt={name} loading="lazy" />
+                                                        <div className="skill-icon-wrapper md:w-9 md:h-9">
+                                                            <img src={`/skill-icons/${icon}`} alt={name} loading="lazy" className="md:w-6 md:h-6" />
                                                         </div>
                                                     )}
-                                                    <span className="text-zinc-200 text-xs font-semibold">{name}</span>
+                                                    <span className="text-zinc-200 text-xs md:text-sm font-bold tracking-tight">{name}</span>
                                                 </div>
                                             );
                                         })}
