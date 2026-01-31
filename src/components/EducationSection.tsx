@@ -33,7 +33,7 @@ export default function EducationSection() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: idx * 0.2 }}
                         >
-                            <div className="education-card p-1 md:p-10 group">
+                            <div className="education-card p-6 md:p-10 group">
                                 <div className="flex flex-col md:flex-row items-center md:items-start w-full gap-8 relative z-10">
                                     {/* Left Side: Institution Logo */}
                                     <div className="flex-shrink-0">
