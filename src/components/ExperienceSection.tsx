@@ -5,20 +5,18 @@ import { useState } from 'react';
 import { experience } from '../data/experience';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import './ExperienceTimeline.css';
+import './ExperienceZigzag.css';
+import RainEffect from './RainEffect';
 
 export default function ExperienceSection() {
-    // Order: HCL, UNO, Nebraska Innovation Labs
-    const timeline = [
-        experience.find(e => e.company.includes('HCL')),
-        experience.find(e => e.company.includes('University Of Nebraska')),
-        experience.find(e => e.company.includes('Nebraska Innovation Labs')),
-    ];
+     // Use the order from the experience array directly (reverse chronological)
+    const timeline = experience;
 
     const [modalIdx, setModalIdx] = useState<number | null>(null);
 
     return (
-        <section className="my-12 w-full">
+        <section className="my-12 w-full relative">
+            <RainEffect />
             <motion.h2
                 className="text-2xl font-bold mb-12 text-white text-center"
                 initial={{ opacity: 0, y: 40 }}
@@ -27,44 +25,134 @@ export default function ExperienceSection() {
             >
                 My Career Roadmap
             </motion.h2>
-            <div className="experience-timeline">
-                {timeline.map((exp, idx) => (
-                    <div className="timeline-block cursor-pointer" key={exp?.company || idx} onClick={() => setModalIdx(idx)}>
-                        <div className="timeline-content">
-                            <div className="timeline-logo">
-                                {exp?.website ? (
-                                    <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
-                                        <Image src={exp.logo} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
-                                    </a>
-                                ) : (
-                                    <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
+            <div className="experience-timeline-zigzag">
+                {timeline.map((exp, idx) => {
+                    const isRight = idx % 2 === 1;
+                    return (
+                        <motion.div
+                            className={`zigzag-row${isRight ? ' right' : ''}`}
+                            key={exp?.company || idx}
+                            initial={{ opacity: 0, x: isRight ? 50 : -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: idx * 0.2 }}
+                            viewport={{ once: true }}
+                            style={{
+                                justifyContent: isRight ? 'flex-end' : 'flex-start',
+                                minHeight: 220,
+                                position: 'relative',
+                                display: 'flex',
+                                flexDirection: 'row',
+                            }}
+                        >
+                            <div style={{
+                                width: '50%',
+                                display: 'flex',
+                                justifyContent: isRight ? 'flex-end' : 'flex-start',
+                                alignItems: 'flex-start',
+                                position: 'relative',
+                                zIndex: 2,
+                            }}>
+                                {/* Only render card on the correct side */}
+                                {!isRight && (
+                                    <div
+                                        className="zigzag-card"
+                                        onClick={() => setModalIdx(idx)}
+                                        tabIndex={0}
+                                        role="button"
+                                        aria-label={`Open details for ${exp?.company}`}
+                                        style={{marginLeft: 0}}
+                                    >
+                                        <div className="flex flex-col items-center">
+                                            <div className="mb-2">
+                                                {exp?.website ? (
+                                                    <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+                                                        <Image src={exp.logo} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
+                                                    </a>
+                                                ) : (
+                                                    <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
+                                                )}
+                                            </div>
+                                            <h3 className="font-semibold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
+                                            <p className="text-white text-base font-medium mb-2 text-center w-full">
+                                                {exp?.role || (exp?.roles && exp.roles[0]?.role) || ''}
+                                            </p>
+                                            <p className="text-white text-sm opacity-80 mb-2 text-center w-full">
+                                                {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
+                                            </p>
+                                            <p className="text-white text-xs opacity-70 text-center w-full">
+                                                {exp?.location}
+                                            </p>
+                                            <div className="mt-4 text-white/90 text-center w-full">
+                                                {idx === 0 && (
+                                                    <span>Began my career as a Software Engineer, learning real-world development and teamwork in a global company.</span>
+                                                )}
+                                                {idx === 1 && (
+                                                    <span>Pursued my Master’s degree, deepening my knowledge and research in computer science at UNO.</span>
+                                                )}
+                                                {idx === 2 && (
+                                                    <span>Joined an innovative startup, applying my skills to impactful projects and real-world solutions.</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
-                            <h3 className="font-semibold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
-                            <p className="text-white text-base font-medium mb-2 text-center w-full">
-                                {exp?.role || (exp?.roles && exp.roles[0]?.role) || ''}
-                            </p>
-                            <p className="text-white text-sm opacity-80 mb-2 text-center w-full">
-                                {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
-                            </p>
-                            <p className="text-white text-xs opacity-70 text-center w-full">
-                                {exp?.location}
-                            </p>
-                            {/* Short highlight/story for each block */}
-                            <div className="mt-4 text-white/90 text-center w-full">
-                                {idx === 0 && (
-                                    <span>Began my career as a Software Engineer, learning real-world development and teamwork in a global company.</span>
-                                )}
-                                {idx === 1 && (
-                                    <span>Pursued my Master’s degree, deepening my knowledge and research in computer science at UNO.</span>
-                                )}
-                                {idx === 2 && (
-                                    <span>Joined an innovative startup, applying my skills to impactful projects and real-world solutions.</span>
+                            <div style={{
+                                width: '50%',
+                                display: 'flex',
+                                justifyContent: isRight ? 'flex-start' : 'flex-end',
+                                alignItems: 'flex-start',
+                                position: 'relative',
+                                zIndex: 2,
+                            }}>
+                                {/* Only render card on the right side */}
+                                {isRight && (
+                                    <div
+                                        className="zigzag-card"
+                                        onClick={() => setModalIdx(idx)}
+                                        tabIndex={0}
+                                        role="button"
+                                        aria-label={`Open details for ${exp?.company}`}
+                                        style={{marginRight: 0}}
+                                    >
+                                        <div className="flex flex-col items-center">
+                                            <div className="mb-2">
+                                                {exp?.website ? (
+                                                    <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+                                                        <Image src={exp.logo} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
+                                                    </a>
+                                                ) : (
+                                                    <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
+                                                )}
+                                            </div>
+                                            <h3 className="font-semibold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
+                                            <p className="text-white text-base font-medium mb-2 text-center w-full">
+                                                {exp?.role || (exp?.roles && exp.roles[0]?.role) || ''}
+                                            </p>
+                                            <p className="text-white text-sm opacity-80 mb-2 text-center w-full">
+                                                {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
+                                            </p>
+                                            <p className="text-white text-xs opacity-70 text-center w-full">
+                                                {exp?.location}
+                                            </p>
+                                            <div className="mt-4 text-white/90 text-center w-full">
+                                                {idx === 0 && (
+                                                    <span>Began my career as a Software Engineer, learning real-world development and teamwork in a global company.</span>
+                                                )}
+                                                {idx === 1 && (
+                                                    <span>Pursued my Master’s degree, deepening my knowledge and research in computer science at UNO.</span>
+                                                )}
+                                                {idx === 2 && (
+                                                    <span>Joined an innovative startup, applying my skills to impactful projects and real-world solutions.</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
-                        </div>
-                    </div>
-                ))}
+                        </motion.div>
+                    );
+                })}
             </div>
             {/* Modal Popup */}
             {modalIdx !== null && (

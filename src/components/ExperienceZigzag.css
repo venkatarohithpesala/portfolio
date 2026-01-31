@@ -1,0 +1,105 @@
+/* Zig-zag timeline for ExperienceSection */
+.experience-timeline-zigzag {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.zigzag-row {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 180px;
+  position: relative;
+}
+.zigzag-row.right {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.zigzag-card {
+  background: #18181b;
+  color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px 0 #0006;
+  padding: 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 400px;
+  z-index: 2;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.zigzag-card:hover {
+  transform: scale(1.04) translateY(-6px);
+  box-shadow: 0 8px 32px 0 #1e40af99;
+}
+/* L-shaped connector for zigzag timeline */
+.zigzag-l-connector {
+  position: relative;
+  width: 50px;
+  height: 80px;
+}
+.zigzag-l-connector::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 40px;
+  background: #3b82f6;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+.zigzag-l-connector::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  width: 50px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+.zigzag-l-connector.right::before {
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 40px;
+  background: #3b82f6;
+  transform: translateX(-50%);
+}
+.zigzag-l-connector.right::after {
+  left: auto;
+  right: 50%;
+  top: 40px;
+  width: 50px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 2px;
+  transform: translateX(50%);
+}
+.zigzag-connector-absolute {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  .zigzag-row, .zigzag-row.right {
+    flex-direction: column !important;
+    align-items: flex-start;
+  }
+  .zigzag-l-connector {
+    display: none;
+  }
+  .zigzag-card {
+    min-width: 90vw;
+    max-width: 98vw;
+    margin-bottom: 2rem;
+  }
+}
