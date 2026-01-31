@@ -6,100 +6,143 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2rem 0;
 }
+
+/* Vertical center line */
+.experience-timeline-zigzag::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(59, 130, 246, 0.4) 10%,
+    rgba(59, 130, 246, 0.4) 90%,
+    transparent
+  );
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
 .zigzag-row {
   display: flex;
   width: 100%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  min-height: 180px;
   position: relative;
+  min-height: 220px;
+  align-items: center;
+  margin-bottom: 2rem;
 }
+
 .zigzag-row.right {
   flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: flex-start;
 }
+
+.zigzag-column {
+  width: 50%;
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+.zigzag-row:not(.right) .zigzag-card-container {
+  justify-content: flex-end;
+  padding-right: 60px;
+}
+
+.zigzag-row.right .zigzag-card-container {
+  justify-content: flex-start;
+  padding-left: 60px;
+}
+
+/* Center point/dot */
+.zigzag-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: #3b82f6;
+  border: 4px solid #09090b; /* Matching background color */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+/* Horizontal line connection */
+.zigzag-connector-line {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  background: rgba(59, 130, 246, 0.4);
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.zigzag-row:not(.right) .zigzag-connector-line {
+  right: 50%;
+  width: 60px;
+}
+
+.zigzag-row.right .zigzag-connector-line {
+  left: 50%;
+  width: 60px;
+}
+
 .zigzag-card {
   background: #18181b;
   color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 4px 24px 0 #0006;
-  padding: 2rem 2.5rem;
-  min-width: 320px;
-  max-width: 400px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  padding: 1.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
   z-index: 2;
   position: relative;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
+
 .zigzag-card:hover {
-  transform: scale(1.04) translateY(-6px);
-  box-shadow: 0 8px 32px 0 #1e40af99;
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px -20px rgba(30, 64, 175, 0.6);
 }
-/* L-shaped connector for zigzag timeline */
-.zigzag-l-connector {
-  position: relative;
-  width: 50px;
-  height: 80px;
-}
-.zigzag-l-connector::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 4px;
-  height: 40px;
-  background: #3b82f6;
-  transform: translateX(-50%);
-  border-radius: 2px;
-}
-.zigzag-l-connector::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 40px;
-  width: 50px;
-  height: 4px;
-  background: #3b82f6;
-  border-radius: 2px;
-  transform: translateX(-50%);
-}
-.zigzag-l-connector.right::before {
-  left: 50%;
-  top: 0;
-  width: 4px;
-  height: 40px;
-  background: #3b82f6;
-  transform: translateX(-50%);
-}
-.zigzag-l-connector.right::after {
-  left: auto;
-  right: 50%;
-  top: 40px;
-  width: 50px;
-  height: 4px;
-  background: #3b82f6;
-  border-radius: 2px;
-  transform: translateX(50%);
-}
-.zigzag-connector-absolute {
-  position: absolute;
-  width: 0;
-  height: 0;
-  z-index: 1;
-}
-@media (max-width: 700px) {
+
+@media (max-width: 768px) {
+  .experience-timeline-zigzag::before {
+    left: 30px;
+  }
+  
   .zigzag-row, .zigzag-row.right {
     flex-direction: column !important;
     align-items: flex-start;
+    padding-left: 60px;
+    margin-bottom: 3rem;
   }
-  .zigzag-l-connector {
+
+  .zigzag-column {
+    width: 100%;
+    justify-content: flex-start !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .zigzag-dot {
+    left: 30px;
+    top: 20px;
+  }
+
+  .zigzag-connector-line {
     display: none;
   }
+
   .zigzag-card {
-    min-width: 90vw;
-    max-width: 98vw;
-    margin-bottom: 2rem;
+    width: calc(100% - 20px);
+    min-width: unset;
+    max-width: unset;
   }
 }

@@ -36,120 +36,56 @@ export default function ExperienceSection() {
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6, delay: idx * 0.2 }}
                             viewport={{ once: true }}
-                            style={{
-                                justifyContent: isRight ? 'flex-end' : 'flex-start',
-                                minHeight: 220,
-                                position: 'relative',
-                                display: 'flex',
-                                flexDirection: 'row',
-                            }}
                         >
-                            <div style={{
-                                width: '50%',
-                                display: 'flex',
-                                justifyContent: isRight ? 'flex-end' : 'flex-start',
-                                alignItems: 'flex-start',
-                                position: 'relative',
-                                zIndex: 2,
-                            }}>
-                                {/* Only render card on the correct side */}
-                                {!isRight && (
-                                    <div
-                                        className="zigzag-card"
-                                        onClick={() => setModalIdx(idx)}
-                                        tabIndex={0}
-                                        role="button"
-                                        aria-label={`Open details for ${exp?.company}`}
-                                        style={{marginLeft: 0}}
-                                    >
-                                        <div className="flex flex-col items-center">
-                                            <div className="mb-2">
-                                                {exp?.website ? (
-                                                    <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
-                                                        <Image src={exp.logo} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
-                                                    </a>
-                                                ) : (
-                                                    <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
-                                                )}
-                                            </div>
-                                            <h3 className="font-semibold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
-                                            <p className="text-white text-base font-medium mb-2 text-center w-full">
-                                                {exp?.role || (exp?.roles && exp.roles[0]?.role) || ''}
-                                            </p>
-                                            <p className="text-white text-sm opacity-80 mb-2 text-center w-full">
-                                                {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
-                                            </p>
-                                            <p className="text-white text-xs opacity-70 text-center w-full">
-                                                {exp?.location}
-                                            </p>
-                                            <div className="mt-4 text-white/90 text-center w-full">
-                                                {idx === 0 && (
-                                                    <span>Began my career as a Software Engineer, learning real-world development and teamwork in a global company.</span>
-                                                )}
-                                                {idx === 1 && (
-                                                    <span>Pursued my Master’s degree, deepening my knowledge and research in computer science at UNO.</span>
-                                                )}
-                                                {idx === 2 && (
-                                                    <span>Joined an innovative startup, applying my skills to impactful projects and real-world solutions.</span>
-                                                )}
-                                            </div>
+                            {/* Connection elements */}
+                            <div className="zigzag-dot" />
+                            <div className="zigzag-connector-line" />
+
+                            <div className="zigzag-column zigzag-card-container">
+                                <div
+                                    className="zigzag-card"
+                                    onClick={() => setModalIdx(idx)}
+                                    tabIndex={0}
+                                    role="button"
+                                    aria-label={`Open details for ${exp?.company}`}
+                                >
+                                    <div className="flex flex-col items-center">
+                                        <div className="mb-3">
+                                            {exp?.website ? (
+                                                <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+                                                    <Image src={exp.logo} alt={exp.company + ' Logo'} width={64} height={64} className="object-contain rounded-md hover:scale-110 transition-transform" />
+                                                </a>
+                                            ) : (
+                                                <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={64} height={64} className="object-contain rounded-md" />
+                                            )}
+                                        </div>
+                                        <h3 className="font-bold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
+                                        <p className="text-white text-base font-semibold mb-1 text-center w-full">
+                                            {exp?.role || (exp?.roles && exp.roles[0]?.role) || ''}
+                                        </p>
+                                        <p className="text-blue-300 text-sm opacity-80 mb-2 text-center w-full">
+                                            {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
+                                        </p>
+                                        <p className="text-white/60 text-xs text-center w-full mb-3">
+                                            {exp?.location}
+                                        </p>
+                                        <div className="text-white/80 text-sm text-center leading-relaxed">
+                                            {idx === 0 && (
+                                                <span>Began my career as a Software Engineer, learning real-world development and teamwork in a global company.</span>
+                                            )}
+                                            {idx === 1 && (
+                                                <span>Pursued my Master’s degree, deepening my knowledge and research in computer science at UNO.</span>
+                                            )}
+                                            {idx === 2 && (
+                                                <span>Joined an innovative startup, applying my skills to impactful projects and real-world solutions.</span>
+                                            )}
                                         </div>
                                     </div>
-                                )}
+                                </div>
                             </div>
-                            <div style={{
-                                width: '50%',
-                                display: 'flex',
-                                justifyContent: isRight ? 'flex-start' : 'flex-end',
-                                alignItems: 'flex-start',
-                                position: 'relative',
-                                zIndex: 2,
-                            }}>
-                                {/* Only render card on the right side */}
-                                {isRight && (
-                                    <div
-                                        className="zigzag-card"
-                                        onClick={() => setModalIdx(idx)}
-                                        tabIndex={0}
-                                        role="button"
-                                        aria-label={`Open details for ${exp?.company}`}
-                                        style={{marginRight: 0}}
-                                    >
-                                        <div className="flex flex-col items-center">
-                                            <div className="mb-2">
-                                                {exp?.website ? (
-                                                    <a href={exp.website} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
-                                                        <Image src={exp.logo} alt={exp.company + ' Logo'} width={70} height={70} className="object-contain rounded-md hover:scale-105 transition-transform" />
-                                                    </a>
-                                                ) : (
-                                                    <Image src={exp?.logo || ''} alt={exp?.company + ' Logo'} width={70} height={70} className="object-contain rounded-md" />
-                                                )}
-                                            </div>
-                                            <h3 className="font-semibold text-xl text-blue-400 mb-1 text-center w-full">{exp?.company}</h3>
-                                            <p className="text-white text-base font-medium mb-2 text-center w-full">
-                                                {exp?.role || (exp?.roles && exp.roles[0]?.role) || ''}
-                                            </p>
-                                            <p className="text-white text-sm opacity-80 mb-2 text-center w-full">
-                                                {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
-                                            </p>
-                                            <p className="text-white text-xs opacity-70 text-center w-full">
-                                                {exp?.location}
-                                            </p>
-                                            <div className="mt-4 text-white/90 text-center w-full">
-                                                {idx === 0 && (
-                                                    <span>Began my career as a Software Engineer, learning real-world development and teamwork in a global company.</span>
-                                                )}
-                                                {idx === 1 && (
-                                                    <span>Pursued my Master’s degree, deepening my knowledge and research in computer science at UNO.</span>
-                                                )}
-                                                {idx === 2 && (
-                                                    <span>Joined an innovative startup, applying my skills to impactful projects and real-world solutions.</span>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                            
+                            {/* Empty column for zigzag layout */}
+                            <div className="zigzag-column hidden md:flex" />
                         </motion.div>
                     );
                 })}
