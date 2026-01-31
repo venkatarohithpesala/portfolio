@@ -171,9 +171,56 @@ export default function Home() {
                     </svg>
                 </button>
             )}
-            {/* Simple Footer */}
-            <footer className="w-full text-center py-4 text-zinc-400 text-sm border-t border-zinc-800 mt-8">
-                © {new Date().getFullYear()} Venkata Rohith Pesala
+            {/* Professional Footer Section */}
+            <footer className="w-full border-t border-zinc-800 bg-black pt-16 pb-8">
+                <div className="max-w-5xl mx-auto px-4 flex flex-col items-center">
+                    <motion.div 
+                        className="text-center mb-10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                            Let's Build Something <span className="text-blue-400">Extraordinary</span>
+                        </h2>
+                        <p className="text-zinc-400 max-w-lg mx-auto text-lg leading-relaxed">
+                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
+                            <span className="block mt-2 font-medium text-blue-400/80">Feel free to reach out!</span>
+                        </p>
+                    </motion.div>
+
+                    <div className="flex flex-wrap justify-center gap-4 mb-12">
+                        <a 
+                            href="mailto:vr.pesala@gmail.com"
+                            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-500 text-black font-bold hover:bg-blue-400 transition-all active:scale-95 shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                        >
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zm0 12H4V8.99l8 6.99 8-6.99V18z" />
+                            </svg>
+                            Say Hello
+                        </a>
+                        <a 
+                            href="https://www.linkedin.com/in/venkatarohithpesala/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 border border-zinc-700 text-white font-bold hover:bg-zinc-800 hover:border-blue-500/50 transition-all active:scale-95"
+                        >
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.034 0 3.595 1.997 3.595 4.59v5.606z" />
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+
+                    <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4 text-zinc-500 text-sm border-t border-zinc-900 pt-8">
+                        <p>© {new Date().getFullYear()} Venkata Rohith Pesala. All rights reserved.</p>
+                        <div className="flex gap-6">
+                            <span className="hover:text-blue-400 transition-colors cursor-default">Built with Next.js & AWS</span>
+                            <span className="hover:text-blue-400 transition-colors cursor-default">Cloud Native</span>
+                        </div>
+                    </div>
+                </div>
             </footer>
         </div>
     );

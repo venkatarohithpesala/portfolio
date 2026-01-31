@@ -71,4 +71,9 @@ body {
     25% { transform: rotate(0.5deg); }
     75% { transform: rotate(-0.5deg); }
   }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
 }
