@@ -213,12 +213,8 @@ export default function Home() {
                         </a>
                     </div>
 
-                    <div className="w-full flex flex-col md:flex-row justify-between items-center gap-4 text-zinc-500 text-sm border-t border-zinc-900 pt-8">
+                    <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 text-zinc-500 text-sm border-t border-zinc-900 pt-8">
                         <p>© {new Date().getFullYear()} Venkata Rohith Pesala. All rights reserved.</p>
-                        <div className="flex gap-6">
-                            <span className="hover:text-blue-400 transition-colors cursor-default">Built with Next.js & AWS</span>
-                            <span className="hover:text-blue-400 transition-colors cursor-default">Cloud Native</span>
-                        </div>
                     </div>
                 </div>
             </footer>
