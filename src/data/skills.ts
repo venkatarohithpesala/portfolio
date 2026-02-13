@@ -49,7 +49,7 @@ export const skills = [
             { name: 'EC2', icon: 'ec2.png' },
             { name: 'S3', icon: 's3.png' },
             { name: 'Lambda', icon: 'lambda.png' },
-            { name: 'Step Functions', icon: 'step-function.png' },
+            { name: 'Step Functions', icon: 'Step-function.png' },
             { name: 'EventBridge', icon: 'eventbridge.png' },
             { name: 'RDS', icon: 'rds.png' },
             { name: 'Secrets Manager', icon: 'secrets-manager.png' },
