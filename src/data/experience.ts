@@ -4,7 +4,7 @@ export const experience = [
         company: 'Nebraska Innovation Labs',
         location: 'Omaha, Nebraska',
         role: 'Full Stack Developer',
-        period: 'Nov 2024 - Present',
+        period: 'Feb 2025 - Present',
         logo: '/experience-icons/neil.png',
         website: 'https://www.neinnovationlabs.com/',
         projects: [
@@ -28,7 +28,7 @@ export const experience = [
             {
                 name: 'AQI - Aequitas Invest',
                 supervisor: 'Mr. Lemuel Stevens',
-                period: 'Feb 2025 - Present',
+                period: 'Mar 2025 - Present',
                 highlights: [
                     'Customized an existing company dashboard into a multi-role investment platform for Entrepreneurs and Investors, enabling end-to-end onboarding, campaign creation, and investing workflows.',
                     'Built application workflows for both roles: users complete detailed applications, perform email verification, and proceed to account creation using pre-filled form data from the database.',
@@ -70,7 +70,7 @@ export const experience = [
             {
                 name: 'ICHA - Inspire Collaborative Health Association',
                 supervisor: 'Mr. Lemuel Stevens',
-                period: 'Nov 2024 - Feb 2025',
+                period: 'Feb 2025 - Mar 2025',
                 highlights: [
                     'Implemented a role-based login system with three dashboards: Public (no login required), Patient (login required), and Member (login required).',
                     'Added email verification for user registration and ensured form submissions are securely stored and retrievable from the database.',
@@ -93,12 +93,12 @@ export const experience = [
         roles: [
             {
                 role: 'Attic Graduate Researcher',
-                period: 'June 2024 - Dec 2024',
+                period: 'Jan 2024 - Dec 2024',
                 projects: [
                     {
                         name: 'Codecrush Project',
                         supervisor: 'Dr. Deepak Khazanchi',
-                        period: 'June 2024 - Dec 2024',
+                        period: 'Jul 2024 - Dec 2024',
                         highlights: [
                             'Led the complete redevelopment of the CodeCrush website, modernizing the architecture and implementing a scalable backend using Python (Flask) and a component-based frontend with ReactJS for improved maintainability and performance.',
                             'Designed and integrated a dynamic form submission and approval system, enabling students to submit requests and administrators to review, approve, or reject entries via a secure admin dashboard.',
@@ -110,12 +110,12 @@ export const experience = [
             },
             {
                 role: 'Graduate Researcher',
-                period: 'Jan 2023 - June 2024',
+                period: 'Jan 2024 - Aug 2024',
                 projects: [
                     {
                         name: 'UNMC Project',
                         supervisor: 'Dr. John Youn',
-                        period: 'Jan 2023 - June 2024',
+                        period: 'Jan 2024 - Aug 2024',
                         highlights: [
                             'Spearheaded the "Infant Monitoring Systems" project under the guidance of Dr. John Youn, focused on improving health outcomes through data driven analysis of sleep patterns in infants aged 6 - 15 months.',
                             'Developed Python-based algorithms in Jupyter Notebook, achieving a 95% accuracy rate in detecting sleep duration and patterns, leading to a 30% improvement in research insights.',
@@ -130,14 +130,14 @@ export const experience = [
         company: 'HCL Technologies',
         location: 'Chennai, India',
         role: 'Software Engineer',
-        period: 'Sep 2021 - Dec 2023',
+        period: 'Sep 2021 - Nov 2022',
         logo: '/experience-icons/hcl1.jpg',
         website: 'https://www.hcltech.com/',
         projects: [
             {
                 name: 'Citi Bank – CGE Project',
                 supervisor: 'Mr. Soumen Paul',
-                period: 'Sep 2021 - Dec 2023',
+                period: 'Sep 2021 - Nov 2022',
                 highlights: [
                     'Completed intensive training in Java Full Stack Development and certified through the Great Learning platform.',
                     'Joined the Citi Gifts and Entertainment (CGE) project and quickly adapted to an existing Java/Spring Boot backend and React.js frontend architecture.',
