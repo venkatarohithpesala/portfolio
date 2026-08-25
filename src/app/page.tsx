@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useLenis } from 'lenis/react';
 import DeveloperObject from '../components/DeveloperObject';
+import ScrollProgressBar from '../components/ScrollProgressBar';
 import EndToEndSection from '../components/EndToEndSection';
 import SkillsSection from '../components/SkillsSection';
 import EducationSection from '../components/EducationSection';
@@ -73,6 +74,7 @@ export default function Home() {
     };
     return (
         <div className="min-h-screen w-full font-sans relative">
+            <ScrollProgressBar />
 
             <Topbar
                 activeSection={activeSection}
@@ -142,6 +144,7 @@ export default function Home() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, ease: "easeOut" }}
                     >
+                        <div className="flex flex-col items-center gap-4">
                         <div className="relative group">
                             {/* Animated Rings around Profile */}
                             <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
@@ -190,6 +193,18 @@ export default function Home() {
                             >
                                 <img src="/skill-icons/ts.png" alt="TypeScript" className="w-5 h-5 md:w-6 md:h-6 object-contain" />
                             </motion.div>
+                        </div>
+
+                        <motion.p
+                            className="font-mono text-sm text-zinc-500"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 1.2 }}
+                        >
+                            <span className="text-zinc-600">{'<'}</span>
+                            <span className="text-blue-400">Venkat</span>
+                            <span className="text-zinc-600"> {'/>'}</span>
+                        </motion.p>
                         </div>
                     </motion.div>
                 </section>

@@ -34,11 +34,11 @@ export default function SkillsSection() {
         : [];
 
     return (
-        <section className="mt-16 mb-24 w-full">
+        <section className="my-20 md:my-28 w-full">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
                 <div>
                     <motion.h2
-                        className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-2 leading-tight"
+                        className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight leading-tight"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -47,7 +47,7 @@ export default function SkillsSection() {
                         Technical Expertise
                     </motion.h2>
                     <motion.p
-                        className="text-white/60 text-lg md:text-xl"
+                        className="text-zinc-400 text-lg"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
