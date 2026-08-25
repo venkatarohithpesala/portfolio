@@ -7,11 +7,13 @@ export const experience = [
         period: 'Feb 2025 - Present',
         logo: '/experience-icons/neil.png',
         website: 'https://www.neinnovationlabs.com/',
+        tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'AWS'],
         projects: [
             {
                 name: 'DM- DreamMoney',
                 supervisor: 'Ms. Megan Hale',
                 period: 'Oct 2025 - Present',
+                tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Keycloak'],
                 highlights: [
                     'Sole full-stack engineer building the next version of DreamMoney using Next.js, TypeScript, and PostgreSQL (pgAdmin), delivering end-to-end features across UI, API, database, and deployments.',
                     'Owned the complete SDLC: created and managed work in Jira, implemented features and fixes, reviewed/merged PRs, and released to dev, QA, and production via CI/CD.',
@@ -29,6 +31,7 @@ export const experience = [
                 name: 'AQI - Aequitas Invest',
                 supervisor: 'Mr. Lemuel Stevens',
                 period: 'Mar 2025 - Present',
+                tags: ['Stripe', 'Plaid', 'WebSocket', 'Twilio'],
                 highlights: [
                     'Customized an existing company dashboard into a multi-role investment platform for Entrepreneurs and Investors, enabling end-to-end onboarding, campaign creation, and investing workflows.',
                     'Built application workflows for both roles: users complete detailed applications, perform email verification, and proceed to account creation using pre-filled form data from the database.',
@@ -49,6 +52,7 @@ export const experience = [
                 name: 'VisitorLog Book System',
                 supervisor: 'Mr. Lemuel Stevens',
                 period: 'Aug 2025 - Sep 2025',
+                tags: ['React', 'Node.js', 'MS SQL Server'],
                 highlights: [
                     'Developed a full-stack visitor management system for companies using Vite (React) for the frontend, Node.js/Express for the backend, and MS SQL Server for the database.',
                     'Implemented visitor sign-in and sign-out flows: new visitors can create a profile, while returning visitors are fetched from the database.',
@@ -60,6 +64,7 @@ export const experience = [
                 name: 'DAR - Digital Air Registry',
                 supervisor: 'Mr. Lemuel Stevens',
                 period: 'Mar 2025 - Apr 2025',
+                tags: ['Mapbox GL'],
                 highlights: [
                     'Developed the property claiming workflow, enabling users to register and submit claims for their properties.',
                     'Users could search their property on a map (using Mapbox GL) and view details retrieved from ReportAll USA API.',
@@ -71,6 +76,7 @@ export const experience = [
                 name: 'ICHA - Inspire Collaborative Health Association',
                 supervisor: 'Mr. Lemuel Stevens',
                 period: 'Feb 2025 - Mar 2025',
+                tags: ['Mailtrap'],
                 highlights: [
                     'Implemented a role-based login system with three dashboards: Public (no login required), Patient (login required), and Member (login required).',
                     'Added email verification for user registration and ensured form submissions are securely stored and retrievable from the database.',
@@ -90,6 +96,7 @@ export const experience = [
         location: 'Omaha, Nebraska',
         logo: '/experience-icons/uno.jpg',
         website: 'https://www.unomaha.edu/',
+        tags: ['Python', 'Flask', 'React'],
         roles: [
             {
                 role: 'Attic Graduate Researcher',
@@ -99,6 +106,7 @@ export const experience = [
                         name: 'Codecrush Project',
                         supervisor: 'Dr. Deepak Khazanchi',
                         period: 'Jul 2024 - Dec 2024',
+                        tags: ['Python', 'Flask', 'React'],
                         highlights: [
                             'Led the complete redevelopment of the CodeCrush website, modernizing the architecture and implementing a scalable backend using Python (Flask) and a component-based frontend with ReactJS for improved maintainability and performance.',
                             'Designed and integrated a dynamic form submission and approval system, enabling students to submit requests and administrators to review, approve, or reject entries via a secure admin dashboard.',
@@ -116,6 +124,7 @@ export const experience = [
                         name: 'UNMC Project',
                         supervisor: 'Dr. John Youn',
                         period: 'Jan 2024 - Aug 2024',
+                        tags: ['Python', 'Jupyter Notebook'],
                         highlights: [
                             'Spearheaded the "Infant Monitoring Systems" project under the guidance of Dr. John Youn, focused on improving health outcomes through data driven analysis of sleep patterns in infants aged 6 - 15 months.',
                             'Developed Python-based algorithms in Jupyter Notebook, achieving a 95% accuracy rate in detecting sleep duration and patterns, leading to a 30% improvement in research insights.',
@@ -133,11 +142,13 @@ export const experience = [
         period: 'Sep 2021 - Nov 2022',
         logo: '/experience-icons/hcl1.jpg',
         website: 'https://www.hcltech.com/',
+        tags: ['Java', 'Spring Boot', 'React.js'],
         projects: [
             {
                 name: 'Citi Bank – CGE Project',
                 supervisor: 'Mr. Soumen Paul',
                 period: 'Sep 2021 - Nov 2022',
+                tags: ['Java', 'Spring Boot', 'React.js', 'MySQL'],
                 highlights: [
                     'Completed intensive training in Java Full Stack Development and certified through the Great Learning platform.',
                     'Joined the Citi Gifts and Entertainment (CGE) project and quickly adapted to an existing Java/Spring Boot backend and React.js frontend architecture.',

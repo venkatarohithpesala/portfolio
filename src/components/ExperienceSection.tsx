@@ -5,28 +5,55 @@ import { useState, useEffect } from 'react';
 import { experience } from '../data/experience';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useLenis } from 'lenis/react';
 import './ExperienceZigzag.css';
-import RainEffect from './RainEffect';
+
+const TAG_COLORS = ['#60a5fa', '#3b82f6', '#38bdf8', '#818cf8'];
+
+function TagPills({ tags, className = '' }: { tags?: string[]; className?: string }) {
+    if (!tags || tags.length === 0) return null;
+    return (
+        <div className={`flex flex-wrap gap-1.5 ${className}`}>
+            {tags.map((tag, i) => {
+                const color = TAG_COLORS[i % TAG_COLORS.length];
+                return (
+                    <span
+                        key={tag}
+                        className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium border"
+                        style={{ color, borderColor: `${color}4d`, backgroundColor: `${color}1a` }}
+                    >
+                        {tag}
+                    </span>
+                );
+            })}
+        </div>
+    );
+}
 
 export default function ExperienceSection() {
      // Use the order from the experience array directly (reverse chronological)
     const timeline = experience;
 
     const [modalIdx, setModalIdx] = useState<number | null>(null);
+    const lenis = useLenis();
 
-    // Lock body scroll when modal is open
+    // Lock body scroll (and the smooth-scroll engine) when modal is open
     useEffect(() => {
         if (modalIdx !== null) {
             document.body.style.overflow = 'hidden';
+            lenis?.stop();
         } else {
             document.body.style.overflow = 'unset';
+            lenis?.start();
         }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [modalIdx]);
+        return () => {
+            document.body.style.overflow = 'unset';
+            lenis?.start();
+        };
+    }, [modalIdx, lenis]);
 
     return (
         <section className="my-12 w-full relative">
-            <RainEffect />
             <motion.h2
                 className="text-3xl md:text-5xl font-extrabold mb-16 text-white text-center tracking-tight"
                 initial={{ opacity: 0, y: 40 }}
@@ -36,7 +63,7 @@ export default function ExperienceSection() {
             >
                 Professional <span className="text-blue-400">Roadmap</span>
             </motion.h2>
-            
+
             <div className="experience-timeline-zigzag">
                 {timeline.map((exp, idx) => {
                     const isRight = idx % 2 === 1;
@@ -87,6 +114,8 @@ export default function ExperienceSection() {
                                             {idx === 1 && "Advanced research and academic excellence at UNO, focusing on complex computational challenges and data-driven insights."}
                                             {idx === 2 && "Foundational software engineering at a global scale, delivering robust solutions for enterprise ecosystems."}
                                         </div>
+
+                                        <TagPills tags={exp?.tags} className="justify-center mt-3" />
 
                                         <div className="mt-4 flex items-center text-blue-400 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                             View Details
@@ -177,7 +206,10 @@ export default function ExperienceSection() {
                                         </div>
 
                                         {/* Modal Body */}
-                                        <div className="flex-1 overflow-y-auto p-5 md:p-8 pt-4 md:pt-6 space-y-6 md:space-y-8 scroll-smooth custom-scrollbar">
+                                        <div
+                                            data-lenis-prevent
+                                            className="flex-1 overflow-y-auto p-5 md:p-8 pt-4 md:pt-6 space-y-6 md:space-y-8 scroll-smooth custom-scrollbar"
+                                        >
                                             {exp.projects && exp.projects.map((proj, i) => (
                                                 <div key={proj.name + i} className="group/proj relative pl-5 md:pl-6 border-l-2 border-blue-500/20 hover:border-blue-500/50 transition-colors duration-500">
                                                     <div className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
@@ -188,6 +220,7 @@ export default function ExperienceSection() {
                                                         </div>
                                                         <span className="inline-block self-start md:self-center px-2 py-0.5 md:px-3 md:py-1 rounded-lg bg-zinc-800 text-zinc-400 text-[10px] md:text-xs font-bold uppercase tracking-wider">{proj.period}</span>
                                                     </div>
+                                                    <TagPills tags={proj.tags} className="mb-3 md:mb-4" />
                                                     <ul className="space-y-3 md:space-y-4">
                                                         {proj.highlights.map((h, j) => (
                                                             <li key={j} className="flex gap-2 md:gap-3 text-zinc-300 text-xs md:text-sm leading-relaxed group/item">
@@ -212,6 +245,7 @@ export default function ExperienceSection() {
                                                                 </div>
                                                                 <span className="inline-block px-3 py-1 rounded-lg bg-zinc-800 text-zinc-400 text-xs font-bold uppercase tracking-wider">{proj.period}</span>
                                                             </div>
+                                                            <TagPills tags={proj.tags} className="mb-4" />
                                                             <ul className="space-y-4">
                                                                 {proj.highlights.map((h, k) => (
                                                                     <li key={k} className="flex gap-3 text-zinc-300 text-sm leading-relaxed group/item">

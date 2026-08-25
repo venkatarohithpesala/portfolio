@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useLenis } from 'lenis/react';
+import DeveloperObject from '../components/DeveloperObject';
+import EndToEndSection from '../components/EndToEndSection';
 import SkillsSection from '../components/SkillsSection';
 import EducationSection from '../components/EducationSection';
 import ExperienceSection from '../components/ExperienceSection';
@@ -12,6 +15,7 @@ import Topbar from '../components/Topbar';
 
 export default function Home() {
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const lenis = useLenis();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -22,7 +26,11 @@ export default function Home() {
     }, []);
 
     const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (lenis) {
+            lenis.scrollTo(0);
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     const skillsRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
@@ -30,20 +38,44 @@ export default function Home() {
     const experienceRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
     const projectsRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
 
+    const [activeSection, setActiveSection] = useState<string | null>(null);
+
+    useEffect(() => {
+        const sections: [string, RefObject<HTMLDivElement>][] = [
+            ['skills', skillsRef],
+            ['education', educationRef],
+            ['experience', experienceRef],
+            ['projects', projectsRef],
+        ];
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    const match = sections.find(([, ref]) => ref.current === entry.target);
+                    if (match) setActiveSection(match[0]);
+                });
+            },
+            { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+        );
+        sections.forEach(([, ref]) => {
+            if (ref.current) observer.observe(ref.current);
+        });
+        return () => observer.disconnect();
+    }, []);
+
     const scrollToSection = (ref: RefObject<HTMLDivElement>) => {
-        if (ref.current) {
+        if (!ref.current) return;
+        if (lenis) {
+            lenis.scrollTo(ref.current);
+        } else {
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     };
     return (
-        <div className="min-h-screen w-full bg-black font-sans relative overflow-hidden">
-            {/* Ambient Background Glows */}
-            <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full animate-pulse" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
-            </div>
+        <div className="min-h-screen w-full font-sans relative">
 
             <Topbar
+                activeSection={activeSection}
                 onSkillsClick={() => scrollToSection(skillsRef)}
                 onEducationClick={() => scrollToSection(educationRef)}
                 onExperienceClick={() => scrollToSection(experienceRef)}
@@ -68,7 +100,7 @@ export default function Home() {
                         </div>
 
                         <h1 className="text-4xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                            Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-sky-300 animate-gradient-x drop-shadow-[0_0_15px_rgba(59,130,246,0.4)]">Venkat</span>
+                            Hi, I&apos;m <span className="font-cursive text-[1.25em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-sky-300 animate-gradient-x drop-shadow-[0_0_15px_rgba(59,130,246,0.4)]">Venkat</span>
                         </h1>
 
                         <div className="space-y-6 max-w-xl">
@@ -77,8 +109,30 @@ export default function Home() {
                             </p>
 
                             <p className="text-base md:text-lg text-zinc-400 leading-relaxed">
-                                I build scalable, cloud-native solutions with <span className="text-zinc-200 font-medium">AWS</span> and <span className="text-zinc-200 font-medium">DevOps</span> best practices. Passionate about turning complex problems into elegant, high-performance applications.
+                                I build scalable, cloud-native solutions with <span className="text-zinc-200 font-medium">AWS</span> and <span className="text-zinc-200 font-medium">DevOps</span> best practices - from architecture to deployment, no hand-offs.
                             </p>
+
+                            <div className="flex justify-center md:justify-start">
+                                <DeveloperObject />
+                            </div>
+
+                            <motion.div
+                                className="flex flex-wrap justify-center md:justify-start gap-x-10 gap-y-4"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                            >
+                                {[
+                                    { value: '4+', label: 'Years Experience' },
+                                    { value: '7+', label: 'Projects Delivered' },
+                                    { value: '8+', label: 'AWS Services' },
+                                ].map((stat) => (
+                                    <div key={stat.label}>
+                                        <p className="text-2xl md:text-3xl font-extrabold text-white">{stat.value}</p>
+                                        <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold mt-0.5">{stat.label}</p>
+                                    </div>
+                                ))}
+                            </motion.div>
                         </div>
                     </motion.div>
 
@@ -140,19 +194,7 @@ export default function Home() {
                     </motion.div>
                 </section>
 
-                {/* Animated Scroll Indicator */}
-                <motion.div
-                    className="flex flex-col items-center gap-2 mb-20 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.5 }}
-                    transition={{ delay: 2, duration: 1 }}
-                    onClick={() => scrollToSection(skillsRef)}
-                >
-                    <span className="text-zinc-500 text-xs font-bold uppercase tracking-widest">Scroll to explore</span>
-                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                </motion.div>
+                <EndToEndSection />
 
                 <div ref={skillsRef} className="scroll-mt-32"><SkillsSection /></div>
                 <div ref={educationRef} className="scroll-mt-32"><EducationSection /></div>
@@ -182,13 +224,25 @@ export default function Home() {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-                            Let's Build Something <span className="text-blue-400">Extraordinary</span>
+                            Let&apos;s Ship Something <span className="text-blue-400">Together</span>
                         </h2>
                         <p className="text-zinc-400 max-w-lg mx-auto text-lg leading-relaxed">
-                            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
-                            <span className="block mt-2 font-medium text-blue-400/80">Feel free to reach out!</span>
+                            Looking for a full-stack engineer who can own a feature end-to-end - frontend to deployment?
+                            <span className="block mt-2 font-medium text-blue-400/80">Let&apos;s talk.</span>
                         </p>
                     </motion.div>
+
+                    <motion.p
+                        className="font-mono text-xs md:text-sm text-zinc-500 mb-10 text-center"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.15 }}
+                        viewport={{ once: true }}
+                    >
+                        <span className="text-blue-400">{'PS C:\\Users\\venkat> '}</span>
+                        {'echo "Thanks for stopping by \u2014 let\'s build something."'}
+                        <span className="terminal-cursor" />
+                    </motion.p>
 
                     <div className="flex flex-wrap justify-center gap-4 mb-12">
                         <a 
