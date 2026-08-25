@@ -53,9 +53,9 @@ export default function ExperienceSection() {
     }, [modalIdx, lenis]);
 
     return (
-        <section className="my-12 w-full relative">
+        <section className="my-20 md:my-28 w-full relative">
             <motion.h2
-                className="text-3xl md:text-5xl font-extrabold mb-16 text-white text-center tracking-tight"
+                className="text-3xl md:text-5xl font-extrabold mb-4 text-white text-center tracking-tight"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -63,6 +63,15 @@ export default function ExperienceSection() {
             >
                 Professional <span className="text-blue-400">Roadmap</span>
             </motion.h2>
+            <motion.p
+                className="text-zinc-400 text-center max-w-xl mx-auto mb-16"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+            >
+                Where I&apos;ve worked, what I built, and the impact it made.
+            </motion.p>
 
             <div className="experience-timeline-zigzag">
                 {timeline.map((exp, idx) => {

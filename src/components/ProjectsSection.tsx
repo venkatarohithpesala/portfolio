@@ -7,9 +7,9 @@ const TAG_COLORS = ['#60a5fa', '#3b82f6', '#38bdf8', '#818cf8'];
 
 export default function ProjectsSection() {
     return (
-        <section className="my-12 w-full">
+        <section className="my-20 md:my-28 w-full">
             <motion.h2
-                className="text-2xl font-bold mb-2 text-white"
+                className="text-3xl md:text-5xl font-extrabold mb-4 text-white text-center tracking-tight"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -18,7 +18,7 @@ export default function ProjectsSection() {
                 Projects
             </motion.h2>
             <motion.p
-                className="text-zinc-400 mb-8"
+                className="text-zinc-400 text-center max-w-xl mx-auto mb-16"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}

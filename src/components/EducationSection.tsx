@@ -126,13 +126,13 @@ function EducationCard({ edu, idx }: { edu: (typeof education)[number]; idx: num
 
 export default function EducationSection() {
     return (
-        <section className="my-24 w-full relative overflow-hidden px-4">
+        <section className="my-20 md:my-28 w-full relative overflow-hidden px-4">
             {/* Background decorative elements */}
             <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
 
             <motion.h2
-                className="text-3xl font-bold mb-16 text-white text-center tracking-tight"
+                className="text-3xl md:text-5xl font-extrabold mb-4 text-white text-center tracking-tight"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -140,6 +140,15 @@ export default function EducationSection() {
             >
                 Education History
             </motion.h2>
+            <motion.p
+                className="text-zinc-400 text-center max-w-xl mx-auto mb-16"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+            >
+                The academic foundation behind the engineering.
+            </motion.p>
 
             <div className="education-roadmap w-full max-w-4xl mx-auto">
                 {education.map((edu, idx) => (
