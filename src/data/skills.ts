@@ -53,6 +53,7 @@ export const skills = [
             { name: 'EventBridge', icon: 'eventbridge.png' },
             { name: 'RDS', icon: 'rds.png' },
             { name: 'Secrets Manager', icon: 'secrets-manager.png' },
+            { name: 'Bedrock', icon: 'aws-bedrock.png' },
         ],
     },
     {

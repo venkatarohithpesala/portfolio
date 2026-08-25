@@ -1,35 +1,41 @@
 "use client";
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { skills } from '../data/skills';
 import { motion, AnimatePresence } from 'framer-motion';
-import './SkillsSection.css';
+
+const SkillCloud = dynamic(() => import('./SkillCloud'), { ssr: false });
 
 export default function SkillsSection() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-    const filteredSkills = skills.map(group => ({
-        ...group,
-        items: group.items.filter(item => {
+    const hasMatches = skills.some((group) =>
+        group.items.some((item) => {
             const name = typeof item === 'string' ? item : item.name;
             return name.toLowerCase().includes(searchQuery.toLowerCase());
         })
-    })).filter(group => group.items.length > 0);
+    );
 
-    const toggleCategory = (category: string) => {
-        if (window.innerWidth >= 768) return; // Don't toggle on desktop
-        setExpandedCategories(prev => 
-            prev.includes(category) 
-                ? prev.filter(c => c !== category) 
-                : [...prev, category]
-        );
-    };
-
-    const isSearching = searchQuery.length > 0;
+    const isFiltering = searchQuery.length > 0 || activeCategory !== null;
+    const matchedItems = isFiltering
+        ? skills.flatMap((group) =>
+              group.items
+                  .filter((item) => {
+                      const name = typeof item === 'string' ? item : item.name;
+                      if (searchQuery) return name.toLowerCase().includes(searchQuery.toLowerCase());
+                      return group.category === activeCategory;
+                  })
+                  .map((item) => ({
+                      name: typeof item === 'string' ? item : item.name,
+                      icon: typeof item === 'object' && 'icon' in item ? item.icon : null,
+                  }))
+          )
+        : [];
 
     return (
         <section className="mt-16 mb-24 w-full">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
                 <div>
                     <motion.h2
                         className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-2 leading-tight"
@@ -40,7 +46,7 @@ export default function SkillsSection() {
                     >
                         Technical Expertise
                     </motion.h2>
-                    <motion.p 
+                    <motion.p
                         className="text-white/60 text-lg md:text-xl"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -51,7 +57,7 @@ export default function SkillsSection() {
                     </motion.p>
                 </div>
 
-                <motion.div 
+                <motion.div
                     className="relative max-w-xs w-full"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -62,13 +68,16 @@ export default function SkillsSection() {
                         type="text"
                         placeholder="Search skills (e.g. React, AWS)..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            if (e.target.value) setActiveCategory(null);
+                        }}
                         className="w-full bg-zinc-900/50 border border-white/10 rounded-full px-6 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all backdrop-blur-sm"
                     />
-                    <svg 
-                        className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" 
-                        fill="none" 
-                        stroke="currentColor" 
+                    <svg
+                        className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -76,96 +85,80 @@ export default function SkillsSection() {
                 </motion.div>
             </div>
 
-            <div className="skills-container">
-                <AnimatePresence mode="popLayout">
-                    {filteredSkills.map((group, groupIdx) => {
-                        const isExpanded = expandedCategories.includes(group.category) || isSearching;
-                        return (
-                            <motion.div
-                                key={group.category}
-                                className="skill-category-card"
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: groupIdx * 0.05 }}
-                            >
-                                <div 
-                                    className="flex items-center justify-between cursor-pointer md:cursor-default"
-                                    onClick={() => toggleCategory(group.category)}
-                                >
-                                    <h3 className="category-title text-blue-400 font-bold">
-                                        {group.category}
-                                    </h3>
-                                    <motion.span 
-                                        animate={{ rotate: isExpanded ? 180 : 0 }}
-                                        className="md:hidden flex items-center justify-center opacity-40"
-                                    >
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </motion.span>
-                                </div>
-                                
-                                <div className="hidden md:block flex-1">
-                                    <div className="flex flex-wrap gap-2 pt-5 pb-2">
-                                        {group.items.map((item) => {
-                                            const name = typeof item === 'string' ? item : item.name;
-                                            const icon = typeof item === 'object' && 'icon' in item ? item.icon : null;
-                                            return (
-                                                <div key={name} className="skill-item">
-                                                    {icon && (
-                                                        <div className="skill-icon-wrapper md:w-9 md:h-9">
-                                                            <img src={`/skill-icons/${icon}`} alt={name} loading="lazy" className="md:w-6 md:h-6" />
-                                                        </div>
-                                                    )}
-                                                    <span className="text-zinc-200 text-xs md:text-sm font-bold tracking-tight">{name}</span>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
+            <motion.div
+                className="flex flex-wrap gap-2 mb-4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+            >
+                {skills.map((group) => {
+                    const isActive = activeCategory === group.category;
+                    return (
+                        <button
+                            key={group.category}
+                            onClick={() => {
+                                setSearchQuery('');
+                                setActiveCategory(isActive ? null : group.category);
+                            }}
+                            className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-tight border transition-all ${
+                                isActive
+                                    ? 'bg-blue-500 border-blue-400 text-black shadow-[0_0_15px_rgba(59,130,246,0.4)]'
+                                    : 'bg-white/5 border-white/10 text-white/60 hover:text-white hover:border-blue-500/40'
+                            }`}
+                        >
+                            {group.category}
+                        </button>
+                    );
+                })}
+            </motion.div>
 
-                                <div className="md:hidden">
-                                    <AnimatePresence initial={false}>
-                                        {isExpanded && (
-                                            <motion.div 
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: 'auto', opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.3, ease: "easeInOut" }}
-                                                className="overflow-hidden"
-                                            >
-                                                <div className="flex flex-wrap gap-2 pt-4 pb-4">
-                                                    {group.items.map((item) => {
-                                                        const name = typeof item === 'string' ? item : item.name;
-                                                        const icon = typeof item === 'object' && 'icon' in item ? item.icon : null;
-                                                        return (
-                                                            <div key={name} className="skill-item">
-                                                                {icon && (
-                                                                    <div className="skill-icon-wrapper">
-                                                                        <img src={`/skill-icons/${icon}`} alt={name} loading="lazy" />
-                                                                    </div>
-                                                                )}
-                                                                <span className="text-zinc-200 text-xs font-semibold">{name}</span>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </motion.div>
+            {hasMatches ? (
+                <>
+                    <SkillCloud searchQuery={searchQuery} activeCategory={activeCategory} />
+                    <AnimatePresence>
+                        {isFiltering && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                                className="mt-6"
+                            >
+                                <p className="text-center text-white/40 text-xs font-bold uppercase tracking-widest mb-3">
+                                    {matchedItems.length} matching skill{matchedItems.length === 1 ? '' : 's'}
+                                </p>
+                                <div className="flex flex-wrap justify-center gap-2">
+                                {matchedItems.map((item) => (
+                                    <div
+                                        key={item.name}
+                                        className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-2 pr-4 py-1.5"
+                                    >
+                                        {item.icon && (
+                                            <img
+                                                src={`/skill-icons/${item.icon}`}
+                                                alt={item.name}
+                                                loading="lazy"
+                                                className="w-5 h-5 object-contain rounded-full"
+                                            />
                                         )}
-                                    </AnimatePresence>
+                                        <span className="text-zinc-200 text-xs md:text-sm font-bold tracking-tight">
+                                            {item.name}
+                                        </span>
+                                    </div>
+                                ))}
                                 </div>
                             </motion.div>
-                        );
-                    })}
-                </AnimatePresence>
-            </div>
-            {filteredSkills.length === 0 && (
+                        )}
+                    </AnimatePresence>
+                </>
+            ) : (
                 <motion.div
                     className="text-center py-20"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                 >
-                    <p className="text-white/40 text-xl italic">No skills found matching "{searchQuery}"</p>
+                    <p className="text-white/40 text-xl italic">No skills found matching &quot;{searchQuery}&quot;</p>
                 </motion.div>
             )}
         </section>
