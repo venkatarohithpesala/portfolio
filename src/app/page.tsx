@@ -13,6 +13,9 @@ import ExperienceSection from '../components/ExperienceSection';
 import ProjectsSection from '../components/ProjectsSection';
 import { useRef, RefObject } from 'react';
 import Topbar from '../components/Topbar';
+import { skills } from '../data/skills';
+
+const awsServicesCount = skills.find((c) => c.category === 'AWS Services')?.items.length ?? 0;
 
 export default function Home() {
     const [showScrollTop, setShowScrollTop] = useState(false);
@@ -127,7 +130,7 @@ export default function Home() {
                                 {[
                                     { value: '4+', label: 'Years Experience' },
                                     { value: '7+', label: 'Projects Delivered' },
-                                    { value: '8+', label: 'AWS Services' },
+                                    { value: `${awsServicesCount}+`, label: 'AWS Services' },
                                 ].map((stat) => (
                                     <div key={stat.label}>
                                         <p className="text-2xl md:text-3xl font-extrabold text-white">{stat.value}</p>

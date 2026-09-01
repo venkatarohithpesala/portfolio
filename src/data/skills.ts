@@ -54,6 +54,11 @@ export const skills = [
             { name: 'RDS', icon: 'rds.png' },
             { name: 'Secrets Manager', icon: 'secrets-manager.png' },
             { name: 'Bedrock', icon: 'aws-bedrock.png' },
+            { name: 'CloudWatch', icon: 'cloudwatch.png' },
+            { name: 'GuardDuty', icon: 'guardduty.png' },
+            { name: 'SES', icon: 'ses.png' },
+            { name: 'IAM', icon: 'iam.png' },
+            { name: 'EBS', icon: 'ebs.png' },
         ],
     },
     {
