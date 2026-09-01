@@ -22,7 +22,7 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Venkata Rohith Pesala — Full Stack Cloud Engineer",
+  title: "Venkata Rohith Pesala - Full Stack Cloud Engineer",
   description:
     "Full Stack Cloud Engineer building scalable, cloud-native solutions with Next.js, NestJS, and AWS. Explore my projects, experience, and skills.",
   keywords: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Venkata Rohith Pesala" }],
   openGraph: {
-    title: "Venkata Rohith Pesala — Full Stack Cloud Engineer",
+    title: "Venkata Rohith Pesala - Full Stack Cloud Engineer",
     description:
       "Full Stack Cloud Engineer building scalable, cloud-native solutions with Next.js, NestJS, and AWS.",
     images: ["/profile-pic.png"],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Venkata Rohith Pesala — Full Stack Cloud Engineer",
+    title: "Venkata Rohith Pesala - Full Stack Cloud Engineer",
     description:
       "Full Stack Cloud Engineer building scalable, cloud-native solutions with Next.js, NestJS, and AWS.",
     images: ["/profile-pic.png"],
