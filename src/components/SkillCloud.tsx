@@ -222,7 +222,11 @@ export default function SkillCloud({
                 )}
             </div>
 
-            <div ref={containerRef} className="relative w-full h-[380px] sm:h-[460px] md:h-[540px]">
+            <div
+                ref={containerRef}
+                data-lenis-prevent
+                className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] touch-none"
+            >
                 <Canvas
                     camera={{ position: [0, 0, 11], fov: 42 }}
                     dpr={[1, 1.5]}

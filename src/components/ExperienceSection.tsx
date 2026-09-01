@@ -37,17 +37,17 @@ export default function ExperienceSection() {
     const [modalIdx, setModalIdx] = useState<number | null>(null);
     const lenis = useLenis();
 
-    // Lock body scroll (and the smooth-scroll engine) when modal is open
+    // Lock body scroll (and the smooth-scroll engine) when modal is open.
     useEffect(() => {
         if (modalIdx !== null) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflowY = 'hidden';
             lenis?.stop();
         } else {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflowY = '';
             lenis?.start();
         }
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflowY = '';
             lenis?.start();
         };
     }, [modalIdx, lenis]);
