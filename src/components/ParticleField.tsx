@@ -187,6 +187,7 @@ export default function ParticleField() {
                 dpr={[1, 1.5]}
                 gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
                 frameloop={hidden ? "never" : reducedMotion ? "demand" : "always"}
+                style={{ pointerEvents: "none" }}
             >
                 <PerformanceMonitor onDecline={() => setQuality("low")}>
                     <ConstellationField quality={quality} reducedMotion={reducedMotion} />
