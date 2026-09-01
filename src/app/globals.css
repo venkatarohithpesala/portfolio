@@ -1,7 +1,8 @@
-/* Slim scrollbar globally for all scrollable elements */
+@import "tailwindcss";
 html, body {
   scrollbar-width: thin;
   scrollbar-color: #3b82f6 #18181b;
+  overflow-x: clip;
 }
 
 body::-webkit-scrollbar, html::-webkit-scrollbar, *::-webkit-scrollbar {
@@ -15,7 +16,6 @@ body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb, *::-webkit-scrollb
 body::-webkit-scrollbar-track, html::-webkit-scrollbar-track, *::-webkit-scrollbar-track {
   background: #18181b;
 }
-@import "tailwindcss";
 
 :root {
   --background: #0a0a0a;
@@ -113,3 +113,4 @@ body {
     50.01%, 100% { opacity: 0; }
   }
 }
+
