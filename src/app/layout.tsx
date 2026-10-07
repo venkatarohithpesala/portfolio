@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Dancing_Script } from "next/font/google";
 import "./globals.css";
+import "./theme-light.css";
 import SmoothScrollProvider from "../components/SmoothScrollProvider";
 import ParticleField from "../components/ParticleFieldLoader";
 import CursorGlow from "../components/CursorGlow";
@@ -58,8 +59,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // suppressHydrationWarning: the inline script below may set data-theme before React hydrates.
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("portfolio-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}`,
+          }}
+        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body

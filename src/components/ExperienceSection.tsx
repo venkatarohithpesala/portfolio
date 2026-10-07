@@ -7,15 +7,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useLenis } from 'lenis/react';
 import './ExperienceZigzag.css';
+import { useTheme } from './theme';
 
 const TAG_COLORS = ['#60a5fa', '#3b82f6', '#38bdf8', '#818cf8'];
+const TAG_COLORS_LIGHT = ['#1d4ed8', '#2563eb', '#0369a1', '#4338ca'];
 
 function TagPills({ tags, className = '' }: { tags?: string[]; className?: string }) {
+    const { theme } = useTheme();
     if (!tags || tags.length === 0) return null;
+    const palette = theme === 'light' ? TAG_COLORS_LIGHT : TAG_COLORS;
     return (
         <div className={`flex flex-wrap gap-1.5 ${className}`}>
             {tags.map((tag, i) => {
-                const color = TAG_COLORS[i % TAG_COLORS.length];
+                const color = palette[i % palette.length];
                 return (
                     <span
                         key={tag}
@@ -112,7 +116,7 @@ export default function ExperienceSection() {
                                         </p>
                                         <div className="flex items-center gap-2 mb-3">
                                             <span className="h-px w-4 bg-blue-400/30"></span>
-                                            <p className="text-blue-300/80 text-xs font-medium uppercase tracking-wider">
+                                            <p className="period-label text-blue-300/80 text-xs font-medium uppercase tracking-wider">
                                                 {exp?.period || (exp?.roles && exp.roles[0]?.period) || ''}
                                             </p>
                                             <span className="h-px w-4 bg-blue-400/30"></span>
@@ -148,7 +152,7 @@ export default function ExperienceSection() {
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 lg:p-12">
                         {/* Overlay */}
                         <motion.div 
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                            className="modal-overlay absolute inset-0 bg-black/80 backdrop-blur-md"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -157,7 +161,7 @@ export default function ExperienceSection() {
 
                         {/* Modal Content container */}
                         <motion.div 
-                            className="relative bg-zinc-900/90 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full max-w-4xl max-h-[90vh] md:max-h-[85vh] overflow-hidden flex flex-col"
+                            className="modal-panel relative bg-zinc-900/90 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full max-w-4xl max-h-[90vh] md:max-h-[85vh] overflow-hidden flex flex-col"
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}

@@ -1,8 +1,18 @@
 @import "tailwindcss";
+
+/* `dark:` follows the site theme (dark unless data-theme="light"), not the OS setting. */
+@custom-variant dark (&:where(html:not([data-theme="light"]) *));
 html, body {
-  scrollbar-width: thin;
-  scrollbar-color: #3b82f6 #18181b;
   overflow-x: clip;
+}
+
+/* Firefox only: it has no ::-webkit-scrollbar. In Chrome/Edge, setting these standard properties
+   would override the thin 3px scrollbar styling below (and cascade into inner scroll areas). */
+@supports not selector(::-webkit-scrollbar) {
+  html, body {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #18181b;
+  }
 }
 
 body::-webkit-scrollbar, html::-webkit-scrollbar, *::-webkit-scrollbar {

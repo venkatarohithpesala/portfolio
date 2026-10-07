@@ -37,7 +37,7 @@ export default function CursorGlow() {
     return (
         <div
             ref={ref}
-            className="fixed inset-0 pointer-events-none opacity-0 transition-opacity duration-500"
+            className="cursor-glow fixed inset-0 pointer-events-none opacity-0 transition-opacity duration-500"
             style={{
                 background:
                     'radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(59,130,246,0.12), transparent 70%)',
