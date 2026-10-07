@@ -100,7 +100,7 @@ function EducationCard({ edu, idx }: { edu: (typeof education)[number]; idx: num
 
                     {/* Right Side: Details */}
                     <div className="flex-1 text-center md:text-left">
-                        <div className="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
+                        <div className="label-pill inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
                             {edu.period}
                         </div>
                         <h3 className="text-xl md:text-2xl font-extrabold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">

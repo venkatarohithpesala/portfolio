@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Billboard, PerformanceMonitor, useTexture } from "@react-three/drei";
 import type { Group, Mesh, MeshBasicMaterial } from "three";
 import { skills } from "../data/skills";
+import { useTheme } from "./theme";
 
 export type FlatSkill = { name: string; icon: string; category: string };
 
@@ -22,6 +23,19 @@ export const flatSkills: FlatSkill[] = skills
 // own visual size (not just its center point) at the poles, or the top/bottom
 // icons clip against the canvas edge while rotating into view.
 const RADIUS = 3.0;
+
+// Logos drawn (almost) entirely in white; they need a dark tint on the light-mode discs.
+const WHITE_ICONS = new Set([
+    "agile.png",
+    "expressjs.png",
+    "github.png",
+    "keycloak.png",
+    "message.png",
+    "openai.png",
+    "sdlc.png",
+    "sendgrid.png",
+    "sql.png",
+]);
 
 function fibonacciSphere(count: number, radius: number): [number, number, number][] {
     const points: [number, number, number][] = [];
@@ -51,9 +65,14 @@ function SkillNodes({
 }) {
     const textures = useTexture(flatSkills.map((s) => `/skill-icons/${s.icon}`));
     const { gl } = useThree();
+    const { theme } = useTheme();
+    const isLight = theme === "light";
+    // Light mode: soft white discs with a thin ring. Dark mode keeps the original translucent dark discs.
+    const bgOpacityFactor = isLight ? 1 : 0.5;
     const groupRef = useRef<Group>(null);
     const iconMatRefs = useRef<(MeshBasicMaterial | null)[]>([]);
     const bgMatRefs = useRef<(MeshBasicMaterial | null)[]>([]);
+    const haloMatRefs = useRef<(MeshBasicMaterial | null)[]>([]);
     const nodeRefs = useRef<(Mesh | null)[]>([]);
 
     const isDragging = useRef(false);
@@ -119,7 +138,10 @@ function SkillNodes({
             if (iconMat) iconMat.opacity += (targetOpacity - iconMat.opacity) * ease;
 
             const bgMat = bgMatRefs.current[i];
-            if (bgMat) bgMat.opacity += (targetOpacity * 0.5 - bgMat.opacity) * ease;
+            if (bgMat) bgMat.opacity += (targetOpacity * bgOpacityFactor - bgMat.opacity) * ease;
+
+            const haloMat = haloMatRefs.current[i];
+            if (haloMat) haloMat.opacity += (targetOpacity * 0.1 - haloMat.opacity) * ease;
 
             const node = nodeRefs.current[i];
             if (node) {
@@ -145,20 +167,40 @@ function SkillNodes({
                     >
                         <circleGeometry args={[0.34, 32]} />
                         <meshBasicMaterial
+                            key={isLight ? "bg-light" : "bg-dark"}
+                            toneMapped={!isLight}
                             ref={(el) => {
                                 bgMatRefs.current[i] = el;
                             }}
-                            color="#0f172a"
+                            color={isLight ? "#ffffff" : "#0f172a"}
                             transparent
                             opacity={0.5}
                         />
+                        {isLight && (
+                            <mesh position={[0, 0, -0.005]}>
+                                <circleGeometry args={[0.42, 40]} />
+                                <meshBasicMaterial
+                                    ref={(el) => {
+                                        haloMatRefs.current[i] = el;
+                                    }}
+                                    color="#2563eb"
+                                    transparent
+                                    opacity={0.1}
+                                    toneMapped={false}
+                                />
+                            </mesh>
+                        )}
                         <mesh position={[0, 0, 0.01]}>
                             <circleGeometry args={[0.24, 32]} />
                             <meshBasicMaterial
+                                key={isLight ? "icon-light" : "icon-dark"}
+                                toneMapped={!isLight}
                                 ref={(el) => {
                                     iconMatRefs.current[i] = el;
                                 }}
                                 map={textures[i]}
+                                // White logos would vanish on a light disc; multiply them to a dark ink color.
+                                color={isLight && WHITE_ICONS.has(skill.icon) ? "#0f172a" : "#ffffff"}
                                 transparent
                                 opacity={1}
                             />
@@ -216,7 +258,7 @@ export default function SkillCloud({
         <div>
             <div className="h-9 flex items-center justify-center">
                 {hoveredName && (
-                    <div className="pointer-events-none bg-black/80 border border-white/10 text-white text-sm font-semibold px-4 py-1.5 rounded-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+                    <div className="skill-tooltip pointer-events-none bg-black/80 border border-white/10 text-white text-sm font-semibold px-4 py-1.5 rounded-full backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
                         {hoveredName}
                     </div>
                 )}

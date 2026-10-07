@@ -2,10 +2,15 @@
 import { projects } from '../data/projects';
 import { motion } from 'framer-motion';
 import { FolderGit2 } from 'lucide-react';
+import { useTheme } from './theme';
 
 const TAG_COLORS = ['#60a5fa', '#3b82f6', '#38bdf8', '#818cf8'];
+const TAG_COLORS_LIGHT = ['#1d4ed8', '#2563eb', '#0369a1', '#4338ca'];
 
 export default function ProjectsSection() {
+    const { theme } = useTheme();
+    const palette = theme === 'light' ? TAG_COLORS_LIGHT : TAG_COLORS;
+
     return (
         <section className="my-20 md:my-28 w-full">
             <motion.h2
@@ -31,7 +36,7 @@ export default function ProjectsSection() {
                 {projects.map((proj, idx) => (
                     <motion.div
                         key={proj.title}
-                        className="group flex flex-col h-full bg-zinc-900/40 border border-white/10 rounded-2xl p-6 hover:border-blue-500/30 hover:bg-zinc-900/60 hover:-translate-y-1 transition-all duration-300"
+                        className="project-card group flex flex-col h-full bg-zinc-900/40 border border-white/10 rounded-2xl p-6 hover:border-blue-500/30 hover:bg-zinc-900/60 hover:-translate-y-1 transition-all duration-300"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: idx * 0.08 }}
@@ -52,7 +57,7 @@ export default function ProjectsSection() {
 
                         <div className="flex flex-wrap gap-2 mt-auto pt-1">
                             {proj.tags.map((tag, tagIdx) => {
-                                const color = TAG_COLORS[tagIdx % TAG_COLORS.length];
+                                const color = palette[tagIdx % palette.length];
                                 return (
                                     <span
                                         key={tag}

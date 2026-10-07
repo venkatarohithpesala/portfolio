@@ -5,6 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import * as THREE from "three";
 import type { Group } from "three";
+import { useTheme } from "./theme";
 
 const POINT_COUNT_HIGH = 220;
 const POINT_COUNT_LOW = 120;
@@ -55,7 +56,7 @@ function randomSpark(segCount: number): SparkState {
     };
 }
 
-function SparkPulses({ segments, reducedMotion }: { segments: Segment[]; reducedMotion: boolean }) {
+function SparkPulses({ segments, reducedMotion, isLight }: { segments: Segment[]; reducedMotion: boolean; isLight: boolean }) {
     const attrRef = useRef<THREE.BufferAttribute>(null);
     const sparkCount = Math.min(SPARK_COUNT, segments.length);
     const stateRef = useRef<SparkState[]>([]);
@@ -94,19 +95,19 @@ function SparkPulses({ segments, reducedMotion }: { segments: Segment[]; reduced
                 <bufferAttribute ref={attrRef} attach="attributes-position" args={[new Float32Array(sparkCount * 3), 3]} />
             </bufferGeometry>
             <pointsMaterial
-                color="#93c5fd"
+                color={isLight ? "#1d4ed8" : "#93c5fd"}
                 size={0.11}
                 sizeAttenuation
                 transparent
                 opacity={0.9}
-                blending={THREE.AdditiveBlending}
+                blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
                 depthWrite={false}
             />
         </points>
     );
 }
 
-function ConstellationField({ quality, reducedMotion }: { quality: "high" | "low"; reducedMotion: boolean }) {
+function ConstellationField({ quality, reducedMotion, isLight }: { quality: "high" | "low"; reducedMotion: boolean; isLight: boolean }) {
     const groupRef = useRef<Group>(null);
     const scrollY = useRef(0);
 
@@ -143,7 +144,7 @@ function ConstellationField({ quality, reducedMotion }: { quality: "high" | "low
                         args={[positions, 3]}
                     />
                 </bufferGeometry>
-                <pointsMaterial color="#60a5fa" size={0.06} sizeAttenuation transparent opacity={0.85} />
+                <pointsMaterial color={isLight ? "#2563eb" : "#60a5fa"} size={0.06} sizeAttenuation transparent opacity={isLight ? 0.45 : 0.85} />
             </points>
             <lineSegments>
                 <bufferGeometry>
@@ -152,14 +153,15 @@ function ConstellationField({ quality, reducedMotion }: { quality: "high" | "low
                         args={[linePositions, 3]}
                     />
                 </bufferGeometry>
-                <lineBasicMaterial color="#3b82f6" transparent opacity={0.12} />
+                <lineBasicMaterial color={isLight ? "#2563eb" : "#3b82f6"} transparent opacity={isLight ? 0.1 : 0.12} />
             </lineSegments>
-            <SparkPulses segments={segments} reducedMotion={reducedMotion} />
+            <SparkPulses segments={segments} reducedMotion={reducedMotion} isLight={isLight} />
         </group>
     );
 }
 
 export default function ParticleField() {
+    const { theme } = useTheme();
     const [hidden, setHidden] = useState(() => document.visibilityState === "hidden");
     const [quality, setQuality] = useState<"high" | "low">("high");
     const [reducedMotion, setReducedMotion] = useState(
@@ -189,7 +191,7 @@ export default function ParticleField() {
                 frameloop={hidden ? "never" : reducedMotion ? "demand" : "always"}
             >
                 <PerformanceMonitor onDecline={() => setQuality("low")}>
-                    <ConstellationField quality={quality} reducedMotion={reducedMotion} />
+                    <ConstellationField quality={quality} reducedMotion={reducedMotion} isLight={theme === "light"} />
                 </PerformanceMonitor>
             </Canvas>
         </div>

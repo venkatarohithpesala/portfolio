@@ -22,7 +22,7 @@ export default function DeveloperObject() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="bg-black/40 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs md:text-sm leading-relaxed w-full max-w-md"
+            className="dev-object bg-black/40 border border-white/10 rounded-xl px-5 py-4 font-mono text-xs md:text-sm leading-relaxed w-full max-w-md"
         >
             <motion.div variants={line}>
                 <span className="text-sky-400">const</span> <span className="text-white">developer</span>{' '}

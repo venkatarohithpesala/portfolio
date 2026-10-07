@@ -1,13 +1,30 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Download, Menu } from "lucide-react";
+import { Mail, Download, Menu, Sun, Moon } from "lucide-react";
+import { useTheme } from "./theme";
 
 function LinkedInIcon({ size = 20 }: { size?: number }) {
     return (
         <svg width={size} height={size} fill="currentColor" viewBox="0 0 24 24" className="inline-block align-middle">
             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.034 0 3.595 1.997 3.595 4.59v5.606z" />
         </svg>
+    );
+}
+
+function ThemeToggle({ size, iconSize, className }: { size: string; iconSize: number; className?: string }) {
+    const { theme, toggleTheme } = useTheme();
+    const next = theme === "light" ? "dark" : "light";
+    return (
+        <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${next} theme`}
+            title={`Switch to ${next} theme`}
+            className={`flex items-center justify-center ${size} rounded-full text-white/70 hover:text-blue-400 hover:bg-blue-500/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 ${className ?? ""}`}
+        >
+            {theme === "light" ? <Moon size={iconSize} strokeWidth={2.25} /> : <Sun size={iconSize} strokeWidth={2.25} />}
+        </button>
     );
 }
 
@@ -56,7 +73,7 @@ export default function Topbar({
     );
 
     return (
-        <nav className="sticky top-0 z-50 bg-white/10 dark:bg-black/60 backdrop-blur-lg border-b border-zinc-700/60 py-2 px-3 sm:py-3 sm:px-6 flex items-center shadow-[0_4px_24px_0_rgba(0,0,0,0.12)] rounded-b-2xl transition-all relative text-white">
+        <nav className="site-nav sticky top-0 z-50 bg-white/10 dark:bg-black/60 backdrop-blur-lg border-b border-zinc-700/60 py-2 px-3 sm:py-3 sm:px-6 flex items-center shadow-[0_4px_24px_0_rgba(0,0,0,0.12)] rounded-b-2xl transition-all relative text-white">
             {/* Branding - Pro Move: Always have your name/logo on the left */}
             <div className="hidden sm:block mr-8">
                 <span className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-400 tracking-tighter cursor-default">
@@ -88,6 +105,7 @@ export default function Topbar({
                         >
                             <Mail size={15} strokeWidth={2.25} />
                         </a>
+                        <ThemeToggle size="w-7 h-7" iconSize={15} />
                     </div>
                     {/* Resume Download Button (mobile) - Modern Glassmorphism */}
                     <a
@@ -162,6 +180,7 @@ export default function Topbar({
                         >
                             <Mail size={19} strokeWidth={2.25} />
                         </a>
+                        <ThemeToggle size="w-9 h-9" iconSize={19} />
                     </div>
 
                     {/* Resume Download Button (desktop) - The Professional Anchor */}
@@ -171,7 +190,7 @@ export default function Topbar({
                         className="group relative inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-500/10 backdrop-blur-md border border-blue-500/30 text-blue-400 font-bold text-sm transition-all duration-300 hover:bg-blue-500 hover:text-black hover:border-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] active:scale-95 overflow-hidden"
                         style={{ textDecoration: 'none' }}
                     >
-                        <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] transition-transform"></div>
+                        <div className="btn-shimmer absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] transition-transform"></div>
                         <Download size={18} strokeWidth={2.5} className="relative z-10" />
                         <span className="relative z-10">Resume</span>
                     </a>

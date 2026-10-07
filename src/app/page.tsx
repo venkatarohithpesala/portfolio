@@ -105,11 +105,11 @@ export default function Home() {
                         </div>
 
                         <h1 className="text-4xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                            Hi, I&apos;m <span className="font-cursive text-[1.25em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-sky-300 animate-gradient-x drop-shadow-[0_0_15px_rgba(59,130,246,0.4)]">Venkat</span>
+                            Hi, I&apos;m <span className="hero-name font-cursive text-[1.25em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-sky-300 animate-gradient-x drop-shadow-[0_0_15px_rgba(59,130,246,0.4)]">Venkat</span>
                         </h1>
 
                         <div className="space-y-6 max-w-xl">
-                            <p className="text-lg md:text-2xl font-semibold text-blue-400">
+                            <p className="hero-role text-lg md:text-2xl font-semibold text-blue-400">
                                 Full Stack Cloud Engineer
                             </p>
 
@@ -150,8 +150,8 @@ export default function Home() {
                         <div className="flex flex-col items-center gap-4">
                         <div className="relative group">
                             {/* Animated Rings around Profile */}
-                            <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-                            <div className="absolute -inset-0.5 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full opacity-30 group-hover:opacity-100 transition duration-500 animate-tilt"></div>
+                            <div className="photo-glow absolute -inset-4 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                            <div className="photo-ring absolute -inset-0.5 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full opacity-30 group-hover:opacity-100 transition duration-500 animate-tilt"></div>
 
                             <motion.div
                                 className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-black bg-zinc-900 shadow-2xl"
@@ -169,28 +169,28 @@ export default function Home() {
 
                             {/* Floating Tech Badges */}
                             <motion.div
-                                className="absolute -top-2 -right-2 md:-top-4 md:-right-4 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-3 rounded-xl md:rounded-2xl border border-white/10 shadow-2xl z-20"
+                                className="hero-chip absolute -top-2 -right-2 md:-top-4 md:-right-4 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-3 rounded-xl md:rounded-2xl border border-white/10 shadow-2xl z-20"
                                 animate={{ y: [0, 8, 0] }}
                                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                             >
                                 <img src="/skill-icons/aws.png" alt="AWS" className="w-6 h-6 md:w-8 md:h-8 object-contain" />
                             </motion.div>
                             <motion.div
-                                className="absolute -bottom-2 -left-2 md:-bottom-2 md:-left-6 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-3 rounded-xl md:rounded-2xl border border-white/10 shadow-2xl z-20"
+                                className="hero-chip absolute -bottom-2 -left-2 md:-bottom-2 md:-left-6 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-3 rounded-xl md:rounded-2xl border border-white/10 shadow-2xl z-20"
                                 animate={{ y: [0, -8, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                             >
                                 <img src="/skill-icons/react.png" alt="React" className="w-6 h-6 md:w-8 md:h-8 object-contain" />
                             </motion.div>
                             <motion.div
-                                className="absolute top-1/2 -left-6 md:-left-12 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-2.5 rounded-lg md:rounded-xl border border-white/10 shadow-2xl z-10"
+                                className="hero-chip absolute top-1/2 -left-6 md:-left-12 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-2.5 rounded-lg md:rounded-xl border border-white/10 shadow-2xl z-10"
                                 animate={{ x: [0, 6, 0] }}
                                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                             >
                                 <img src="/skill-icons/nextjs.png" alt="Next.js" className="w-5 h-5 md:w-6 md:h-6 object-contain invert" />
                             </motion.div>
                             <motion.div
-                                className="absolute top-1/4 -right-6 md:-right-8 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-2.5 rounded-lg md:rounded-xl border border-white/10 shadow-2xl z-10"
+                                className="hero-chip absolute top-1/4 -right-6 md:-right-8 bg-zinc-900/90 backdrop-blur-xl p-2 md:p-2.5 rounded-lg md:rounded-xl border border-white/10 shadow-2xl z-10"
                                 animate={{ x: [0, -6, 0] }}
                                 transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
                             >
@@ -223,7 +223,7 @@ export default function Home() {
             {showScrollTop && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 z-50 bg-black border-2 border-blue-400 hover:bg-zinc-900 text-blue-400 rounded-full shadow-lg p-1.5 transition-all duration-300 animate-fade-in w-10 h-10 flex items-center justify-center"
+                    className="scroll-top-btn fixed bottom-6 right-6 z-50 bg-black border-2 border-blue-400 hover:bg-zinc-900 text-blue-400 rounded-full shadow-lg p-1.5 transition-all duration-300 animate-fade-in w-10 h-10 flex items-center justify-center"
                     aria-label="Scroll to top"
                 >
                     <svg width="20" height="20" fill="none" stroke="#60a5fa" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -265,7 +265,7 @@ export default function Home() {
                     <div className="flex flex-wrap justify-center gap-4 mb-12">
                         <a 
                             href="mailto:vr.pesala@gmail.com"
-                            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-500 text-black font-bold hover:bg-blue-400 transition-all active:scale-95 shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                            className="cta-primary flex items-center gap-2 px-6 py-3 rounded-full bg-blue-500 text-black font-bold hover:bg-blue-400 transition-all active:scale-95 shadow-[0_0_20px_rgba(59,130,246,0.2)]"
                         >
                             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zm0 12H4V8.99l8 6.99 8-6.99V18z" />

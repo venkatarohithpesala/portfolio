@@ -36,7 +36,7 @@ function getReducedMotionServerSnapshot() {
 
 function TerminalChrome({ children }: { children: React.ReactNode }) {
     return (
-        <div className="max-w-2xl mx-auto bg-black/60 border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur-sm">
+        <div className="terminal-window max-w-2xl mx-auto bg-black/60 border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur-sm">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-white/[0.02]">
                 <span className="w-3 h-3 rounded-full bg-red-500/70" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
