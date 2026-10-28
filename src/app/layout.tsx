@@ -23,6 +23,8 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.vrpesala.com"),
+  alternates: { canonical: "/" },
   title: "Venkata Rohith Pesala - Full Stack Cloud Engineer",
   description:
     "Full Stack Cloud Engineer building scalable, cloud-native solutions with Next.js, NestJS, and AWS. Explore my projects, experience, and skills.",
@@ -41,6 +43,7 @@ export const metadata: Metadata = {
     title: "Venkata Rohith Pesala - Full Stack Cloud Engineer",
     description:
       "Full Stack Cloud Engineer building scalable, cloud-native solutions with Next.js, NestJS, and AWS.",
+    url: "/",
     images: ["/profile-pic.png"],
     type: "website",
   },
