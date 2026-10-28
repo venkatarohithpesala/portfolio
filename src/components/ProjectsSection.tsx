@@ -1,7 +1,7 @@
 "use client";
 import { projects } from '../data/projects';
 import { motion } from 'framer-motion';
-import { FolderGit2 } from 'lucide-react';
+import { ExternalLink, FolderGit2 } from 'lucide-react';
 import { useTheme } from './theme';
 
 const TAG_COLORS = ['#60a5fa', '#3b82f6', '#38bdf8', '#818cf8'];
@@ -54,6 +54,23 @@ export default function ProjectsSection() {
                         </div>
 
                         <p className="text-zinc-400 text-sm leading-relaxed mb-5">{proj.description}</p>
+
+                        {proj.links && (
+                            <div className="flex flex-wrap gap-x-5 gap-y-2 mb-5">
+                                {proj.links.map((link) => (
+                                    <a
+                                        key={link.href}
+                                        href={link.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-blue-300 w-fit transition-colors"
+                                    >
+                                        {link.label}
+                                        <ExternalLink size={14} strokeWidth={2} />
+                                    </a>
+                                ))}
+                            </div>
+                        )}
 
                         <div className="flex flex-wrap gap-2 mt-auto pt-1">
                             {proj.tags.map((tag, tagIdx) => {

@@ -13,18 +13,20 @@ export const experience = [
                 name: 'DM- DreamMoney',
                 supervisor: 'Ms. Megan Hale',
                 period: 'Oct 2025 - Present',
-                tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Keycloak'],
+                tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Keycloak', 'Stripe', 'Univer'],
                 highlights: [
                     'Sole full-stack engineer building the next version of DreamMoney using Next.js, TypeScript, and PostgreSQL (pgAdmin), delivering end-to-end features across UI, API, database, and deployments.',
+                    'Implemented Stripe webhooks for real-time synchronization of Stripe data and used synced billing data to power dashboard statistics and financial insights.',
+                    'Integrated Stripe Connect to allow users to connect their Stripe accounts and securely sync read-only financial data, including invoices, subscriptions, and products.',
+                    'Initiated and configured the Stripe app integration flow, supporting the approved Stripe app setup for secure account connection and data access.',
+                    'Integrated Univer to embed the financial spreadsheet directly in the dashboard, replacing Google Sheets, with a dedicated template for each year so users can switch between years and review them all in one place.',
+                    'Improved deployment efficiency by updating CI/CD pipelines to use Azure agents instead of AWS-side build pipelines, reducing deployment time and improving release reliability.',
                     'Owned the complete SDLC: created and managed work in Jira, implemented features and fixes, reviewed/merged PRs, and released to dev, QA, and production via CI/CD.',
                     'Modernized the Admin Dashboard UI and refactored user management by consolidating multiple admin pages into a single, filter-driven view to improve performance and simplify workflows.',
                     'Implemented admin-initiated onboarding flows including resend invitation email, securely retrieving temporary credentials from Keycloak and delivering them through updated email templates.',
-                    'Redesigned and standardized HTML email templates across the application to improve user communication, readability, and consistent branding.',
                     'Revamped the User Dashboard experience to support business planning and financial workflows, improving navigation and overall usability.',
-                    'Built and integrated core planning modules and data flows such as spending plans, revenue goal calculators, business model builder, financial projections, cash flow allocation, profit sharing planner, and yearly summaries, ensuring accurate persistence in PostgreSQL.',
                     'Performed production support and platform maintenance by monitoring New Relic, investigating AWS CloudWatch logs for Lambda issues, validating scheduled jobs, and verifying email deliverability.',
-                    'Ensured environment consistency by managing configuration updates and synchronizing secrets using AWS Secrets Manager, supporting stable releases across all environments.',
-                    'Improved code quality and release confidence by enforcing Sonar checks in the pipeline and resolving merge conflicts early to keep deployments reliable.'
+                    'Ensured environment consistency by managing configuration updates and synchronizing secrets using AWS Secrets Manager, supporting stable releases across all environments.'
                 ]
             },
             {

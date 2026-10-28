@@ -34,6 +34,7 @@ interface TopbarProps {
     onEducationClick: () => void;
     onExperienceClick: () => void;
     onProjectsClick: () => void;
+    onPostsClick: () => void;
 }
 
 export default function Topbar({
@@ -42,6 +43,7 @@ export default function Topbar({
     onEducationClick,
     onExperienceClick,
     onProjectsClick,
+    onPostsClick,
 }: TopbarProps) {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -50,6 +52,7 @@ export default function Topbar({
         { id: "education", label: "Education", onClick: onEducationClick },
         { id: "experience", label: "Experience", onClick: onExperienceClick },
         { id: "projects", label: "Projects", onClick: onProjectsClick },
+        { id: "posts", label: "Posts", onClick: onPostsClick },
     ];
 
     // Menu items for reuse

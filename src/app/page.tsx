@@ -11,6 +11,7 @@ import SkillsSection from '../components/SkillsSection';
 import EducationSection from '../components/EducationSection';
 import ExperienceSection from '../components/ExperienceSection';
 import ProjectsSection from '../components/ProjectsSection';
+import PostsSection from '../components/PostsSection';
 import { useRef, RefObject } from 'react';
 import Topbar from '../components/Topbar';
 import { skills } from '../data/skills';
@@ -41,6 +42,7 @@ export default function Home() {
     const educationRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
     const experienceRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
     const projectsRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
+    const postsRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
 
     const [activeSection, setActiveSection] = useState<string | null>(null);
 
@@ -50,6 +52,7 @@ export default function Home() {
             ['education', educationRef],
             ['experience', experienceRef],
             ['projects', projectsRef],
+            ['posts', postsRef],
         ];
         const observer = new IntersectionObserver(
             (entries) => {
@@ -85,6 +88,7 @@ export default function Home() {
                 onEducationClick={() => scrollToSection(educationRef)}
                 onExperienceClick={() => scrollToSection(experienceRef)}
                 onProjectsClick={() => scrollToSection(projectsRef)}
+                onPostsClick={() => scrollToSection(postsRef)}
             />
 
             <main className="mx-auto max-w-5xl px-4 py-12 md:py-24">
@@ -129,7 +133,7 @@ export default function Home() {
                             >
                                 {[
                                     { value: '4+', label: 'Years Experience' },
-                                    { value: '7+', label: 'Projects Delivered' },
+                                    { value: '8+', label: 'Projects Delivered' },
                                     { value: `${awsServicesCount}+`, label: 'AWS Services' },
                                 ].map((stat) => (
                                     <div key={stat.label}>
@@ -218,6 +222,7 @@ export default function Home() {
                 <div ref={educationRef} className="scroll-mt-32"><EducationSection /></div>
                 <div ref={experienceRef} className="scroll-mt-32"><ExperienceSection /></div>
                 <div ref={projectsRef} className="scroll-mt-32"><ProjectsSection /></div>
+                <div ref={postsRef} className="scroll-mt-32"><PostsSection /></div>
             </main>
             {/* Scroll to Top Button */}
             {showScrollTop && (

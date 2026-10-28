@@ -34,7 +34,18 @@ function getReducedMotionServerSnapshot() {
     return false;
 }
 
-function TerminalChrome({ children }: { children: React.ReactNode }) {
+function TerminalLine({ entry }: { entry: Entry }) {
+    return (
+        <div className="mb-1.5 flex flex-wrap items-baseline gap-x-2">
+            <span className={entry.cmd.startsWith('$') ? 'text-white' : 'text-zinc-400'}>{entry.cmd}</span>
+            {entry.result && <span className="text-green-400">✓ {entry.result}</span>}
+        </div>
+    );
+}
+
+// With `reserveHeight`, an invisible copy of the full script sits in the same grid cell as the live
+// content, so the window is already its final height (at any width) and never pushes the page down.
+function TerminalChrome({ children, reserveHeight }: { children: React.ReactNode; reserveHeight?: boolean }) {
     return (
         <div className="terminal-window max-w-2xl mx-auto bg-black/60 border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur-sm">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-white/[0.02]">
@@ -43,8 +54,19 @@ function TerminalChrome({ children }: { children: React.ReactNode }) {
                 <span className="w-3 h-3 rounded-full bg-green-500/70" />
                 <span className="ml-3 text-xs text-zinc-500 font-mono">deploy.sh — venkat@portfolio</span>
             </div>
-            <div className="p-5 md:p-6 font-mono text-xs md:text-sm leading-relaxed min-h-[280px] md:min-h-[260px]">
-                {children}
+            <div className="p-5 md:p-6 font-mono text-xs md:text-sm leading-relaxed">
+                {reserveHeight ? (
+                    <div className="grid">
+                        <div aria-hidden className="invisible [grid-area:1/1]">
+                            {SCRIPT.map((entry, i) => (
+                                <TerminalLine key={i} entry={entry} />
+                            ))}
+                        </div>
+                        <div className="[grid-area:1/1]">{children}</div>
+                    </div>
+                ) : (
+                    children
+                )}
             </div>
         </div>
     );
@@ -54,12 +76,7 @@ function StaticTerminal() {
     return (
         <TerminalChrome>
             {SCRIPT.map((entry, i) => (
-                <div key={i} className="mb-1.5 flex flex-wrap items-baseline gap-x-2">
-                    <span className={entry.cmd.startsWith('$') ? 'text-white' : 'text-zinc-400'}>
-                        {entry.cmd}
-                    </span>
-                    {entry.result && <span className="text-green-400">✓ {entry.result}</span>}
-                </div>
+                <TerminalLine key={i} entry={entry} />
             ))}
         </TerminalChrome>
     );
@@ -132,14 +149,9 @@ function AnimatedTerminal() {
 
     return (
         <div ref={containerRef}>
-            <TerminalChrome>
+            <TerminalChrome reserveHeight>
                 {completed.map((entry, i) => (
-                    <div key={i} className="mb-1.5 flex flex-wrap items-baseline gap-x-2">
-                        <span className={entry.cmd.startsWith('$') ? 'text-white' : 'text-zinc-400'}>
-                            {entry.cmd}
-                        </span>
-                        {entry.result && <span className="text-green-400">✓ {entry.result}</span>}
-                    </div>
+                    <TerminalLine key={i} entry={entry} />
                 ))}
 
                 {activeEntry && (

@@ -1,5 +1,26 @@
 // Projects data for portfolio
-export const projects = [
+export const projects: {
+    title: string;
+    description: string;
+    tags: string[];
+    links?: { label: string; href: string }[];
+}[] = [
+    {
+        title: "DotEnv Lens",
+        description:
+            "Published a free, open-source VS Code extension that compares .env and .env.example files to detect missing variables, extra variables, empty values, and duplicate keys in one right-click, without exposing secrets. Built with TypeScript and covered by 50 unit tests.",
+        tags: ["VS Code Extension", "TypeScript", "Open Source"],
+        links: [
+            {
+                label: "VS Code Marketplace",
+                href: "https://marketplace.visualstudio.com/items?itemName=venkatarohithpesala.dotenv-lens",
+            },
+            {
+                label: "GitHub",
+                href: "https://github.com/venkatarohithpesala/dotenv-lens",
+            },
+        ],
+    },
     {
         title: "Ventrack",
         description:
