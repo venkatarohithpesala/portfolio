@@ -267,7 +267,7 @@ export default function SkillCloud({
             <div
                 ref={containerRef}
                 data-lenis-prevent
-                className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] touch-none"
+                className="relative w-full h-[380px] sm:h-[460px] md:h-[540px] touch-none cursor-grab active:cursor-grabbing [&_canvas]:cursor-[inherit]"
             >
                 <Canvas
                     camera={{ position: [0, 0, 11], fov: 42 }}
