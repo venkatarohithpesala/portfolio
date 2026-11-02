@@ -8,7 +8,7 @@ export const projects: {
     {
         title: "DotEnv Lens",
         description:
-            "Published a free, open-source VS Code extension that compares .env and .env.example files to detect missing variables, extra variables, empty values, and duplicate keys in one right-click, without exposing secrets. Built with TypeScript and covered by 50 unit tests.",
+            "Published a free, open-source VS Code extension that shows .env values when you hover over process.env in your code, and compares .env files with their templates to find missing, extra, and empty keys. Includes an optional mode that masks secrets for screen sharing. Built with TypeScript and covered by 79 unit tests.",
         tags: ["VS Code Extension", "TypeScript", "Open Source"],
         links: [
             {

@@ -15,7 +15,8 @@ export const posts: {
     featured?: boolean;
     summary?: string; // shown on the large lead card in the featured row (first featured post)
 }[] = [
-    { id: "7521245788904062976", height: 520, tag: "Projects", featured: true, summary: "A free, open-source VS Code extension that compares .env and .env.example files to catch missing variables, extra variables, empty values, and duplicate keys, with no secrets exposed. Built with TypeScript and 50 unit tests.", title: "One missing .env variable. One \"undefined\" error. Introducing DotEnv Lens v0.1.0" },
+    { id: "7523052541455151106", height: 403, tag: "Projects", featured: true, summary: "A free, open-source VS Code extension. Hover over process.env in your code to see the real value and the file it came from, with a warning for empty values and an error for keys that are not set. It also compares .env files with their templates. Built with TypeScript and 79 unit tests.", title: "You hover. You see the value. You keep coding. Introducing DotEnv Lens v0.2.0" },
+    { id: "7521245788904062976", height: 520, tag: "Projects", title: "One missing .env variable. One \"undefined\" error. Introducing DotEnv Lens v0.1.0" },
     { id: "7520491340460130306", height: 580, tag: "System Design", featured: true, title: "A tornado is approaching. Thousands of phones get an alert. How?" },
     { id: "7517980883211964417", height: 670, tag: "Cloud & AWS", title: "New to cloud? These are the main services to know" },
     { id: "7516552574708264960", height: 670, tag: "Databases", title: "If all databases store data, why do companies use different ones?" },
