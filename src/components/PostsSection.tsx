@@ -303,7 +303,7 @@ export default function PostsSection() {
                                     <X size={18} strokeWidth={2.25} />
                                 </button>
                             </div>
-                            <div data-lenis-prevent className="overflow-y-auto overscroll-contain p-2 sm:p-3">
+                            <div data-lenis-prevent className="overflow-y-auto overscroll-contain p-2 sm:p-3 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.3)_transparent]">
                                 <iframe
                                     src={`https://www.linkedin.com/embed/feed/update/urn:li:share:${openPost.id}?collapsed=1`}
                                     height={openPost.height}
